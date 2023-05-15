@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <title th:text="${filmName}"></title>
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="/css/index.css">
+
+    <link rel="stylesheet" href="../static/css/film.css">
+    <link rel="stylesheet" href="/css/film.css">
+
+  </head>
+  <body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="nav-main">
+                    <img src="/images/icons/cinema.png" height="20" width="20">
+                    <a href="../"><h1>Головна</h1></a>
+                </div>
+                <form action="/search" method="get" class="">
+                    <input type="text" name="query" placeholder="Search..." class="nav-search-input">
+                    <input type="submit" class="nav-search-button" value="">
+                </form>
+                <ul class="">
+                    <li><a href="/schedule" class="h">Розклад</a></li>
+                    <li><a href="/films" class="h">Фільми</a></li>
+                    <li><a href="#" class="h">Про нас</a></li>
+                </ul>
+            </nav>
+          </header>
+      <main>
+        <section class="movie">
+            <div class="movie-info">
+                <h1 th:text="${filmName}" class="h"></h1>
+                <div class="movie-flex">
+                    <div class="movie-poster">
+                        <img th:src="${image}" alt="Назва фільму" height="600", width="450">
+                    </div>
+                    <div class="movie-details">
+                        <div>
+                            <p><b>Жанр: </b><span th:text="${filmGenres}"></span></p>
+                            <p><b>Режисер: </b><span th:text="${filmDirector}"></span></p>
+                            <p><b>У головних ролях: </b><span th:text="${filmCast}"></span></p>
+                            <p><b>Дата виходу: </b><span th:text="${rentalDate}"></span></p>
+                            <p><b>Хронометраж: </b><span th:text="${filmDuration}"></span></p>
+                        </div>
+                        <div class="movie-description">
+                            <p th:text="${description}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#" class="buy-ticket">Бронювати квиток</a> 
+        </section>
+      </main>
+    </div>
+  </body>
+</html>    
