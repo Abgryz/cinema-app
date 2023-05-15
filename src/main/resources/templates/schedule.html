@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Кінотеатр</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="/css/index.css">
+
+    <link rel="stylesheet" href="../static/css/schedule.css">
+    <link rel="stylesheet" href="/css/schedule.css">
+
+    <script th:inline="javascript" src="/scripts/schedule.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="nav-main">
+                    <img src="/images/icons/cinema.png" height="20" width="20">
+                    <a href="../"><h1>Головна</h1></a>
+                </div>
+                <form action="/search" method="get" class="">
+                    <input type="text" name="query" placeholder="Search..." class="nav-search-input">
+                    <input type="submit" class="nav-search-button" value="">
+                </form>
+                <ul class="">
+                    <li><a href="/schedule" class="h">Розклад</a></li>
+                    <li><a href="/films" class="h">Фільми</a></li>
+                    <li><a href="#" class="h">Про нас</a></li>
+                </ul>
+            </nav>
+          </header>
+      <main>
+        
+        <table id="schedule-table">
+            <thead>
+              <tr>
+                <th class="h">Назва фільму</th>
+                <th class="h">Дата та час</th>
+                <th class="h">Хронометраж</th>
+                <th class="h">Номер зали</th>
+                <th class="h">Тип зали</th>
+                <th class="h"></th>
+              </tr>
+            </thead>
+            <tbody id="schedule-body">
+
+            </tbody>
+          </table>
+          
+          
+
+      </main>
+    </div>
+  </body>
+</html>    
