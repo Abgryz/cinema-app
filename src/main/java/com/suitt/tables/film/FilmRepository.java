@@ -14,4 +14,7 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
 
     @Query(value = "select * from film where image is not null order by rental_date desc limit :limit", nativeQuery = true)
     List<Film> latestFilms(@Param("limit") int limit);
+
+    @Query(value = "select * from film where emp_email = :email", nativeQuery = true)
+    List<Film> findByEmployee(@Param("email") String email);
 }

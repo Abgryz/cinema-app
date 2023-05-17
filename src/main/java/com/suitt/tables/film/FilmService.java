@@ -5,7 +5,6 @@ import com.suitt.tables.cinemaShow.CinemaShowDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +41,7 @@ public class FilmService {
 
     public Map<CinemaShowDto, String> getFilmNameToCinemaShows(List<CinemaShowDto> cinemaShows){
         Map<CinemaShowDto, String> result = new LinkedHashMap<>();
-        cinemaShows.stream()
-                .forEach((cinemaShow -> result.put(cinemaShow, getFilm(cinemaShow.filmId()).filmName())));
+        cinemaShows.forEach((cinemaShow -> result.put(cinemaShow, getFilm(cinemaShow.filmId()).filmName())));
         return result;
     }
 
@@ -65,7 +63,7 @@ public class FilmService {
                         .collect(Collectors.toList()))
                 .image(film.getImage())
                 .description(film.getDescription())
-                .employee(film.getEmployee().getPhoneNumber())
+                .employee(film.getEmployee().getEmail())
                 .build();
     }
 }

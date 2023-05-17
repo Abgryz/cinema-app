@@ -13,15 +13,15 @@ import java.util.List;
 public class Hall{
     @Id
     @Column(name = "hall_id")
-    Long id;
+    private Long id;
 
-    int seatCount;
+    private int seatCount;
 
-    String hallType;
-
-    @OneToMany(mappedBy = "hall", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<CinemaShow> cinemaShows;
+    private String hallType;
 
     @OneToMany(mappedBy = "hall", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Seat> seats;
+    private List<CinemaShow> cinemaShows;
+
+    @OneToMany(mappedBy = "hall", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Seat> seats;
 }

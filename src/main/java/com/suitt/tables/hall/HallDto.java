@@ -9,7 +9,7 @@ public record HallDto(
         Long id,
         String type,
         int seatCount,
-        List<String> cinemas,
+        List<Long> cinemas,
         List<Long> seats
 ) {
 

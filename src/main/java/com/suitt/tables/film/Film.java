@@ -38,7 +38,7 @@ public class Film {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "emp_phone_number")
+    @JoinColumn(name = "emp_email")
     private Employee employee;
 
     private String image;

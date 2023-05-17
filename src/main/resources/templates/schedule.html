@@ -14,24 +14,8 @@
 
   <body>
     <div class="container">
-        <header>
-            <nav>
-                <div class="nav-main">
-                    <img src="/images/icons/cinema.png" height="20" width="20">
-                    <a href="../"><h1>Головна</h1></a>
-                </div>
-                <form action="/search" method="get" class="">
-                    <input type="text" name="query" placeholder="Search..." class="nav-search-input">
-                    <input type="submit" class="nav-search-button" value="">
-                </form>
-                <ul class="">
-                    <li><a href="/schedule" class="h">Розклад</a></li>
-                    <li><a href="/films" class="h">Фільми</a></li>
-                    <li><a href="#" class="h">Про нас</a></li>
-                </ul>
-            </nav>
-          </header>
-      <main>
+    <header th:replace="~{fragments/header :: header}"></header>
+    <main>
         
         <table id="schedule-table">
             <thead>
@@ -47,11 +31,8 @@
             <tbody id="schedule-body">
 
             </tbody>
-          </table>
-          
-          
-
-      </main>
+        </table>
+    </main>
     </div>
   </body>
 </html>    

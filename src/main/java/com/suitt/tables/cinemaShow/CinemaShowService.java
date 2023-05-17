@@ -1,13 +1,10 @@
 package com.suitt.tables.cinemaShow;
 
-import com.suitt.tables.film.FilmRepository;
-import com.suitt.tables.film.FilmService;
 import com.suitt.tables.ticket.Ticket;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,7 +25,13 @@ public class CinemaShowService {
     }
 
     public List<CinemaShowDto> getNearest(int limit){
-        return repository.nearestCinemaShows(limit).stream()
+        return repository.getNearestCinemaShows(limit).stream()
+                .map(CinemaShowService::mapCinemaShow)
+                .collect(Collectors.toList());
+    }
+
+    public List<CinemaShowDto> getNearestByFilmId(Long filmId, int limit){
+        return repository.getNearestByFilmId(filmId, limit).stream()
                 .map(CinemaShowService::mapCinemaShow)
                 .collect(Collectors.toList());
     }

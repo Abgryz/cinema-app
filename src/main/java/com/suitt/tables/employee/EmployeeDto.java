@@ -1,6 +1,6 @@
 package com.suitt.tables.employee;
 
-import com.suitt.tables.jobTittle.JobTittle;
+import com.suitt.security.user.UserDto;
 import com.suitt.tables.ticketSales.TicketSalesPK;
 import lombok.Builder;
 
@@ -9,13 +9,16 @@ import java.util.List;
 
 @Builder
 public record EmployeeDto(
-        String phoneNumber,
+        String email,
         String fullName,
         String address,
         LocalDate birthDate,
         LocalDate empDate,
         String jobTittleName,
-        List<TicketSalesPK> ticketSales,
-        List<Long> films
-) {
+        List<Long> ticketSales,
+        List<Long> films,
+        String password,
+//        String role,
+        boolean active
+) implements UserDto {
 }

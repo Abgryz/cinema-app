@@ -1,6 +1,5 @@
 package com.suitt.tables.ticketSales;
 
-import com.suitt.tables.ticket.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +27,8 @@ public class TicketSalesService {
         return TicketSalesDto.builder()
                 .ticket(ticketSales.getTicketSalesPK().getTicket().getId())
                 .saleDate(ticketSales.getSaleDate())
-                .client(ticketSales.getClient().getPhoneNumber())
-                .employee(ticketSales.getClient().getPhoneNumber())
+                .client(ticketSales.getClient().getEmail())
+                .employee(ticketSales.getClient().getEmail())
                 .isBooking(ticketSales.isBooking())
                 .build();
     }

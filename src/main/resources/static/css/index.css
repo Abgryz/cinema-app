@@ -35,39 +35,39 @@ nav {
 nav ul {
   list-style: none;
   display: flex;
-
+  align-items:center;
 }
 
 .nav-main{
   display: flex;
   align-items: center;
-  padding: 16px;
+  padding: 12px;
 
   margin: 4px;
   border-radius: 10px;
-}
-.nav-main a{
   margin-left: 5px;
   color: black;
   text-decoration: none;
 }
-nav ul li{
-  padding: 16px;
-  display: inline-block;
+.nav-main img{
+  margin-right: 10px;
+}
+.nav-button{
   margin: 4px;
   border-radius: 10px;
+  display: inline-block;
 }
-nav ul li:hover, .nav-main:hover{
+.nav-button:hover, .nav-main:hover{
   background-color: rgba(255, 255, 255, 0.2);
-}
-nav ul li:hover a, .nav-main:hover a{
   color: white;
 }
 
-nav ul li a {
+.nav-button{
   text-decoration: none;
   color: #000000;
   font-size: 20px;
+  display: inline-block;
+  padding: 16px;
 }
 
 .nav-search-input{
@@ -112,3 +112,38 @@ main {
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
 }
+
+.nav-profile{
+  margin: 0 15px;
+  display: inline-block;
+}
+.nav-profile:hover{
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  transform: scale(1.1);
+}
+
+
+
+
+
+
+/* .nav-search-button{
+  position: absolute;
+  left: 5px;
+}
+.nav-search-input{
+  width: 41px;
+  min-width: 0;
+  transition: transform 0.9s ease-in-out;
+}
+nav form{
+  position: relative;
+  width: 41px;
+}
+
+.nav-search-input:hover{
+  width: auto;
+  min-width: 300px;
+
+} */

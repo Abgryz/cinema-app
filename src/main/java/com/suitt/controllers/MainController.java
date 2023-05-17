@@ -21,6 +21,7 @@ public class MainController {
     private final FilmService filmService;
     private final CinemaShowService cinemaShowService;
     private final HallService hallService;
+
     @GetMapping("/")
     public String home(Model model){
         model.addAttribute("newFilms", filmService.latestFilms(5));
@@ -43,6 +44,7 @@ public class MainController {
         model.addAttribute("rentalDate", film.rentalDate());
         model.addAttribute("filmDuration", film.filmDuration());
         model.addAttribute("description", film.description());
+        model.addAttribute("filmId", film.id());
 
         return "film";
     }
@@ -66,5 +68,16 @@ public class MainController {
     @GetMapping("/schedule")
     public String schedule(Model model){
         return "schedule";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model){
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String register(Model model){
+        System.out.println(123123123);
+        return "register";
     }
 }
