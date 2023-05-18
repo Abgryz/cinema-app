@@ -24,13 +24,6 @@ public class MainRestController {
     private final CinemaShowService cinemaShowService;
     private final UserService userService;
 
-//    @Autowired
-//    public MainRestController(FilmService filmService, HallService hallService, CinemaShowService cinemaShowService) {
-//        this.filmService = filmService;
-//        this.hallService = hallService;
-//        this.cinemaShowService = cinemaShowService;
-//    }
-
     @GetMapping("/schedule")
     public Map<String, List<?>> getSchedule(){
         Map<String, List<?>> result = new HashMap<>();

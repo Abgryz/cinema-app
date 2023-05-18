@@ -1,5 +1,6 @@
 package com.suitt.tables.employee;
 
+import com.suitt.security.user.Role;
 import com.suitt.security.user.UserDto;
 import com.suitt.security.user.UserEntity;
 import com.suitt.security.user.UserService;
@@ -44,25 +45,25 @@ public class EmployeeService {
                                 .getTicket()
                                 .getId())
                         .collect(Collectors.toList()))
-//                .role(employee.getRole())
-                .password(null)
+                .role(Role.getByJobTittle(employee.getJobTittle()))
+                .password(employee.getPassword())
                 .active(employee.isActive())
                 .build();
     }
 
     public UserEntity toEntity(EmployeeDto employeeDto){
         return Employee.builder()
-                .address(employeeDto.address())
-                .empDate(employeeDto.empDate())
-                .email(employeeDto.email())
-                .birthDate(employeeDto.birthDate())
-                .fullName(employeeDto.fullName())
-                .films(filmRepository.findByEmployee(employeeDto.email()))
-                .ticketSales(ticketSalesRepository.findByEmployee(employeeDto.email()))
-                .jobTittle(jobTittleRepository.findById(employeeDto.jobTittleName()).orElse(null))
+                .address(employeeDto.getAddress())
+                .empDate(employeeDto.getEmpDate())
+                .email(employeeDto.getEmail())
+                .birthDate(employeeDto.getBirthDate())
+                .fullName(employeeDto.getFullName())
+                .films(filmRepository.findByEmployee(employeeDto.getEmail()))
+                .ticketSales(ticketSalesRepository.findByEmployee(employeeDto.getEmail()))
+                .jobTittle(jobTittleRepository.findById(employeeDto.getJobTittleName()).orElse(null))
 //                .role(employeeDto.role())
-                .active(employeeDto.active())
-                .password(passwordEncoder.encode(employeeDto.password()))
+                .active(employeeDto.isActive())
+                .password(passwordEncoder.encode(employeeDto.getPassword()))
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.suitt.security.user;
 
+import com.suitt.tables.client.Client;
 import com.suitt.tables.client.ClientDto;
 import com.suitt.tables.client.ClientRepository;
 import com.suitt.tables.client.ClientService;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,17 +19,27 @@ import java.util.stream.Collectors;
 public class UserService {
     protected final ClientRepository clientRepository;
     protected final EmployeeRepository employeeRepository;
+    private final ClientService clientService;
+    private final EmployeeService employeeService;
 
-    public UserDto getUser(String email){
-        return employeeRepository.findById(email)
+    public Optional<UserDto> getUser(String email){
+        return Optional.ofNullable(employeeRepository.findById(email)
                 .map(EmployeeService::toDto)
                 .orElse(
                         clientRepository.findById(email)
                                 .map(ClientService::toDto)
                                 .orElse(null)
-                );
+                ));
     }
 
+    public void registerClient(UserDto user){
+        if (clientRepository.findById(user.email).isPresent()){
+            throw new IllegalArgumentException("User already exist");
+        }
+        Client client = clientService.toEntity(user);
+        clientRepository.save(client);
+//        return true;
+    }
 
 
     public List<UserDto> getEmployees(){

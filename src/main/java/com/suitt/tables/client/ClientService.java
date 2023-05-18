@@ -1,5 +1,6 @@
 package com.suitt.tables.client;
 
+import com.suitt.security.user.Role;
 import com.suitt.security.user.UserDto;
 import com.suitt.security.user.UserEntity;
 import com.suitt.security.user.UserService;
@@ -35,22 +36,22 @@ public class ClientService {
                                 .getTicket()
                                 .getId())
                         .collect(Collectors.toList()))
-//                .role(client.getRole())
-                .password(null)
+                .role(Role.USER.name())
+                .password(client.getPassword())
                 .active(client.isActive())
                 .build();
     }
 
-    public UserEntity toEntity(ClientDto clientDto){
+    public Client toEntity(UserDto userDto){
         return Client.builder()
-                .address(clientDto.address())
-                .email(clientDto.email())
-                .birthDate(clientDto.birthDate())
-                .fullName(clientDto.fullName())
-                .ticketSales(ticketSalesRepository.findByEmployee(clientDto.email()))
+                .address(userDto.getAddress())
+                .email(userDto.getEmail())
+                .birthDate(userDto.getBirthDate())
+                .fullName(userDto.getFullName())
+                .ticketSales(ticketSalesRepository.findByEmployee(userDto.getEmail()))
 //                .role(client.role())
-                .active(clientDto.active())
-                .password(passwordEncoder.encode(clientDto.password()))
+                .active(userDto.isActive())
+                .password(passwordEncoder.encode(userDto.getPassword()))
                 .build();
     }
 }

@@ -6,6 +6,7 @@ import com.suitt.tables.jobTittle.JobTittle;
 import com.suitt.tables.ticketSales.TicketSales;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,34 +17,18 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 public class Employee extends UserEntity {
-    @Id
-    @Column(name = "emp_email")
-    private String email;
-
-    @Column(name = "emp_full_name")
-    private String fullName;
-
-    private String address;
-
-    private LocalDate birthDate;
 
     private LocalDate empDate;
-
-    private String password;
-
-    private boolean active;
-//
-//    private String role;
 
     @ManyToOne
     @JoinColumn(name = "job_tittle_name")
     private JobTittle jobTittle;
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Film> films;
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TicketSales> ticketSales;
 }

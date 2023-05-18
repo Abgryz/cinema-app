@@ -8,14 +8,8 @@ import com.suitt.tables.hall.HallService;
 import com.suitt.tables.jobTittle.JobTittleDto;
 import com.suitt.tables.jobTittle.JobTittleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/api")
