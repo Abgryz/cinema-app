@@ -3,21 +3,18 @@
   <head>
     <meta charset="UTF-8">
     <title th:text="${title}"></title>
-    <link rel="stylesheet" href="../static/css/index.css">
     <link rel="stylesheet" href="/css/index.css">
 
-    <link rel="stylesheet" href="../static/css/films.css">
     <link rel="stylesheet" href="/css/films.css">
-
   </head>
   <body>
     <div class="container">
       <header th:replace="~{fragments/header :: header}"></header>
-      <main>
+      <main class="box">
         <h2 th:text="${h2}" class="h"></h2>
         <section class="film-card">
           <th:block th:each="film : ${films}">
-            <a th:href='${"/films/" + film.id}'>
+            <a th:href='${"/films/" + film.id}' class=" box">
               <div>
                 <h3 th:text="${film.filmName()}" class="h"></h3>
               </div>

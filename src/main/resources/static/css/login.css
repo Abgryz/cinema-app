@@ -10,16 +10,12 @@ main{
     margin: 50px auto;
     background: rgb(94,94,94);
     background: linear-gradient(135deg, rgba(94,94,94,1) 0%, rgba(14,27,73,1) 100%);
-    border-radius: 20px;
     padding: 30px;
 }
 
 .login-form{
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    border-radius: 20px;
 }
 .login-form div{
     display: flex;

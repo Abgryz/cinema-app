@@ -16,8 +16,8 @@
   <body>
     <div class="container">
     <header th:replace="~{fragments/header :: header}"></header>
-      <main>
-        <section class="movie">
+      <main class="box">
+        <section class="movie box">
             <div class="movie-info">
                 <h1 th:text="${filmName}" class="h"></h1>
                 <div class="movie-flex">
@@ -38,23 +38,23 @@
                     </div>
                 </div>
             </div>
-            <section class="film-schedule">
-                <h2 class="h">Найближчі сеанси:</h2>
-                <table id="schedule-table">
-                    <thead>
-                      <tr>
-                        <th class="h">Назва фільму</th>
-                        <th class="h">Дата та час</th>
-                        <th class="h">Хронометраж</th>
-                        <th class="h">Номер зали</th>
-                        <th class="h">Тип зали</th>
-                        <th class="h"></th>
-                      </tr>
-                    </thead>
-                    <tbody id="schedule-body">
-                    </tbody>
-                </table>
-            </section>
+        </section>
+        <section class="film-schedule box">
+          <h2 class="h">Найближчі сеанси:</h2>
+          <table id="schedule-table">
+            <thead>
+              <tr>
+                <th class="h">Назва фільму</th>
+                <th class="h">Дата та час</th>
+                <th class="h">Хронометраж</th>
+                <th class="h">Номер зали</th>
+                <th class="h">Тип зали</th>
+                <th class="h"></th>
+              </tr>
+            </thead>
+            <tbody id="schedule-body">
+            </tbody>
+          </table>
         </section>
       </main>
     </div>

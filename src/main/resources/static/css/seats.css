@@ -28,16 +28,12 @@
     width: 84px;
     height: 84px;
 }
-  
 .seat:hover {
     background-color: #0051a8;
 }
-
 .busy{
     background-color: gray;
-
 }
-
 .busy:hover{
     background-color: gray;
 }
@@ -45,10 +41,6 @@
 #seat-form{
     display: flex;
     flex-direction: column;
-
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    border-radius: 20px;
 }
 
 #seat-form div{
@@ -83,29 +75,25 @@
     margin: 5px 0;
 }
 
-
 main{
     display: flex;
     flex-direction: column;
 }
 
 .film-card{
-    /* display: inline-block; */
     flex-wrap: nowrap;
     margin: 0;
 
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    border-radius: 20px;
     margin-bottom: 20px;
+}
+.film-card h3{
+    display: flex;
+    min-height: 40px;
+    align-items: center;
 }
 .film-info{
     text-align: start;
     padding-left: 20px;
-}
-
-.disabled{
-    display: none !important;
 }
 
 .price{
@@ -113,9 +101,10 @@ main{
 }
 
 
-
+.disabled{
+    display: none !important;
+}
 .active{
-    /* border: 2px solid #0056b3; */
     background-color: #0051a8;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }

@@ -1,6 +1,6 @@
 let url = window.location.pathname;
 let id = url.substring(url.lastIndexOf('/') + 1);
-fetch("/api/schedule/seats/" + id)
+fetch("/api/schedule/" + id)
     .then(response => response.json())
     .then(data => {
         const tbody = document.querySelector(".seats-tbody");
@@ -54,9 +54,9 @@ function buttonCreater(seatData){
 
 function formLoader(button){
     const form = document.getElementById("seat-form")
-    form.className = ""
+    form.classList.remove("disabled")
     const div = document.getElementById("seat-form-div")
-    div.className = ""
+    div.classList.remove("disabled")
 
     const label = document.getElementById("form-label")
     label.textContent = "Ви дійсно бажаєте забронювати квиток на обране вами місце?"
@@ -66,8 +66,8 @@ function formLoader(button){
 
     const cancelButton = document.getElementById("cancel-button")
     cancelButton.addEventListener('click', () => {
-        form.className = "disabled"
-        div.className = "disabled"
+        form.classList.add("disabled")
+        div.classList.add("disabled")
         button.classList.remove("active")
     })
 }

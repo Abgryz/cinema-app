@@ -11,16 +11,16 @@
   <body>
     <div class="container">
       <header th:replace="~{fragments/header :: header}"></header>
-      <main>
+      <main class="box">
         <a class="banner" href="/films">
           <h2>Дивіться найкращі фільми у нашому кінотеатрі</h2>
         </a>
 
-        <section class="film-card">
+        <section class="film-card box">
           <h2 class="h">Наші новинки:</h3>
           <div>
             <th:block th:each="film : ${newFilms}">
-              <a th:href='${"/films/" + film.id}'>
+              <a th:href='${"/films/" + film.id}' class=" box">
                 <div>
                   <h3 th:text="${film.filmName()}" class="h"></h3>
                 </div>
@@ -29,7 +29,7 @@
             </th:block>
           </div>
         </section>
-        <section class="schedule">
+        <section class="schedule box">
           <h2 class="h">Найближчі кіносеанси:</h2>
           <ul>
             <th:block th:each="entry : ${nearestCinemaShowsMap}">

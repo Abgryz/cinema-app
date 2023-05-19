@@ -13,10 +13,10 @@
   <body>
     <div class="container">
       <header th:replace="~{fragments/header :: header}"></header>
-      <main>
+      <main class="box">
 
-        <section class="film-card">
-            <a th:href='${"/films/" + film.id}'>
+        <section class="film-card box">
+            <a th:href='${"/films/" + film.id}' class="box">
               <div>
                 <h3 th:text="${film.filmName()}" class="h"></h3>
               </div>
@@ -29,13 +29,13 @@
             </div>
         </section>
         
-        <section class="seats">
+        <section class="seats box">
           <h2 class="h">Оберіть вільне місце:</h2>
             <table>
               <tbody class="seats-tbody" id="seats-body">
               </tbody>
             </table>
-            <form method="post" class="disabled" id="seat-form">
+            <form method="post" class="disabled box" id="seat-form">
               <label id="form-label"></label>
               <div class="disabled" id="seat-form-div">
                 <input type="button" id="cancel-button">

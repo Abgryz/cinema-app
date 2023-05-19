@@ -43,7 +43,7 @@ public class GetRestController {
         return result;
     }
 
-    @GetMapping("/schedule/seats/{id}")
+    @GetMapping("/schedule/{id}")
     public List<?> tickets(@PathVariable("id") Long id){
         return ticketSalesService.ticketsToMap(ticketService.getByCinemaShow(id));
     }

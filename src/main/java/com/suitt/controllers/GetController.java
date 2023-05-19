@@ -76,7 +76,7 @@ public class GetController {
         return "register";
     }
 
-    @GetMapping("/schedule/seats/{id}")
+    @GetMapping("/schedule/{id}")
     public String tickets(Model model, @PathVariable Long id){
         FilmDto filmDto = filmService.getByCinemaShow(id);
         model.addAttribute("film", filmDto);

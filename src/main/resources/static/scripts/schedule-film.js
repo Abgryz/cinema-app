@@ -38,7 +38,7 @@ fetch("/api/film/" + id)
             const buttonCell = document.createElement("td");
             const button = document.createElement("a");
             button.innerText = "Бронювати квиток";
-            button.href = "/schedule/seats/" + cinemaShow.id;
+            button.href = "/schedule/" + cinemaShow.id;
             button.classList.add("ticket-button");
             buttonCell.appendChild(button);
             row.appendChild(buttonCell);
