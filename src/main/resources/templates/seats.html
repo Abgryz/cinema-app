@@ -35,13 +35,13 @@
               <tbody class="seats-tbody" id="seats-body">
               </tbody>
             </table>
-            <form method="post" class="disabled box" id="seat-form">
+            <form method="post" class="disabled box" id="seat-form" action="/api/schedule">
               <label id="form-label"></label>
               <div class="disabled" id="seat-form-div">
                 <input type="button" id="cancel-button">
                 <input type="submit" id="confirm-button" value="">
               </div>
-              <input type="hidden" value="0" id="hidden-id">
+              <input type="hidden" value="0" id="ticketId" name="ticketId">
             </form>
         </section>
 

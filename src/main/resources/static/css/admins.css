@@ -1,9 +1,11 @@
 
-.film-adding-form{
+.adding-form{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+
+    margin-bottom: 10px;
 }
 .component{
     margin: 10px;
@@ -35,7 +37,6 @@ select.textbox {
     font-size: 14px;
 
     min-height: 300px;
-    /* overflow: hidden; */
     appearance: none;
     cursor: pointer; 
 }
@@ -43,4 +44,8 @@ select.textbox {
 .button-container{
     width: 100%;
     text-align: end;
+}
+
+label{
+    text-align: center;
 }

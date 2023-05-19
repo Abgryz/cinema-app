@@ -1,10 +1,12 @@
 package com.suitt.controllers;
 
+import com.suitt.security.user.UserService;
 import com.suitt.tables.cinemaShow.CinemaShowDto;
 import com.suitt.tables.cinemaShow.CinemaShowService;
 import com.suitt.tables.film.FilmDto;
 import com.suitt.tables.film.FilmService;
 import com.suitt.tables.hall.HallService;
+import com.suitt.tables.ticket.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ public class GetController {
     private final FilmService filmService;
     private final CinemaShowService cinemaShowService;
     private final HallService hallService;
+    private final UserService userService;
+    private final TicketRepository ticketRepository;
 
     @GetMapping("/")
     public String home(Model model){
@@ -67,6 +71,25 @@ public class GetController {
         return "schedule";
     }
 
+    @GetMapping("/schedule/{id}")
+    public String tickets(Model model, @PathVariable Long id){
+        FilmDto filmDto = filmService.getByCinemaShow(id);
+        model.addAttribute("film", filmDto);
+        model.addAttribute("cinemaShow", cinemaShowService.getNotStarted(id));
+        model.addAttribute("description", filmDto.description());
+        return "seats";
+    }
+
+    @GetMapping("/profile")
+    public String profile(Model model){
+        model.addAttribute("user", userService.getUser(UserService.authentication().getName()).orElseThrow());
+
+        model.addAttribute("ticketsData", ticketRepository.findTicketBookingDataByClient(UserService.authentication().getName()));
+
+        return "profile";
+    }
+
+
     @GetMapping("/login")
     public String login(Model model){
         return "login";
@@ -75,14 +98,5 @@ public class GetController {
     @GetMapping("/register")
     public String register(Model model){
         return "register";
-    }
-
-    @GetMapping("/schedule/{id}")
-    public String tickets(Model model, @PathVariable Long id){
-        FilmDto filmDto = filmService.getByCinemaShow(id);
-        model.addAttribute("film", filmDto);
-        model.addAttribute("cinemaShow", cinemaShowService.getNotStarted(id));
-        model.addAttribute("description", filmDto.description());
-        return "seats";
     }
 }

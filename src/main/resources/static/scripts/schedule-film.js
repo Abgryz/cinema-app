@@ -1,10 +1,10 @@
 let url = window.location.pathname;
 let id = url.substring(url.lastIndexOf('/') + 1);
-fetch("/api/film/" + id)
+fetch("/api/films/" + id)
     .then(response => response.json())
     .then(data => {
         console.log(data)
-        let films = data.films
+        let films = data.film
         let cinemaShows = data.cinemaShows
         let halls = data.halls
 

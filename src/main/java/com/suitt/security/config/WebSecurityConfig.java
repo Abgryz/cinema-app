@@ -1,5 +1,6 @@
 package com.suitt.security.config;
 
+import com.suitt.security.user.Role;
 import com.suitt.security.user.details.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,14 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
+    private final String USER = Role.ROLE_USER.name();
+    private final String MANAGER = Role.ROLE_MANAGER.name();
+    private final String CASHIER = Role.ROLE_CASHIER.name();
 
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-    }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsService);
+//    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -32,69 +35,54 @@ public class WebSecurityConfig {
                 "/scripts/**",
                 "/files/**"
         };
-//        String[] htmlResources ={
-//                "/index","index.html",
-//                "/startPage","startPage.html",
-//                "/registration","registration.html",
-//                "/login","login.html",
-//                "/afterAuthStartPage","afterAuthStartPage.html",
-//                "/profilePage/**","profilePage.html",
-//
-//        };
-//        String[] afterAuthHtmlResources ={
-//
-//        };
+        String[] htmlResources ={
+                "/",
+                "/films/**",
+                "/register",
+                "/schedule",
+                "/search",
+                "/login"
+        };
+        String[] restResources = {
+                "/api/",
+                "/api/films/**",
+                "/api/register",
+                "/api/schedule"
+        };
 
+        String[] managerResources = {
+                "/api/admins/films",
+                "/api/admins/cinemashows"
+        };
+        String[] cashierResources = {
+                "/api/admins/tickets"
+        };
         http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers( "/register", "/api/register", "/registration/users/register", "/users/register").permitAll()
                         .requestMatchers(staticResources).permitAll()
-//                        .requestMatchers(htmlResources).permitAll()
+                        .requestMatchers(htmlResources).permitAll()
+                        .requestMatchers(restResources).permitAll()
 //                        .requestMatchers("/**").permitAll()
-                        .requestMatchers("/register","/", "/films", "/films/**", "/schedule", "/search", "/login").permitAll()
-                        .requestMatchers("api/register","api/", "api/films", "api/film/**", "api/schedule").permitAll()
-
                         .requestMatchers("/fragments/header").permitAll()
-                        .requestMatchers("/admins/**").hasAnyAuthority("MANAGER", "CASHIER")
-//                        .requestMatchers(afterAuthHtmlResources).hasAnyAuthority("USER", "MANAGER", "CASHIER")
+
+                        .requestMatchers("/profile", "/api/profile").hasAnyAuthority(USER, MANAGER, CASHIER)
+                        .requestMatchers("/admins/**").hasAnyAuthority(MANAGER, CASHIER)
+                        .requestMatchers(managerResources).hasAuthority(MANAGER)
+                        .requestMatchers(cashierResources).hasAuthority(CASHIER)
                         .anyRequest().authenticated())
                 .formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/",true)
+                    .defaultSuccessUrl("/")
                     .failureUrl("/login?error")
                     .and()
                 .logout()
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/login?logout")
-                    .permitAll();
-//                    .and()
-//                .userDetailsService(userDetailsService)
-//                    .csrf().disable();
+                    .permitAll()
+                    .and()
+                .userDetailsService(userDetailsService)
+                    .csrf().disable();
         return http.build();
     }
-
-
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
-//
-//    @Bean
-//    protected DaoAuthenticationProvider daoAuthenticationProvider(){
-//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-//        daoAuthenticationProvider.setUserDetailsService(userDetailService);
-//        return daoAuthenticationProvider;
-//    }
-//
-//    protected void configure(AuthenticationManagerBuilder auth){
-//        auth.authenticationProvider(daoAuthenticationProvider());
-//    }
 }

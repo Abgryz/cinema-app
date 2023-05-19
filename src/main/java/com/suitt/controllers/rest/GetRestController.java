@@ -33,7 +33,7 @@ public class GetRestController {
         return result;
     }
 
-    @GetMapping("/film/{id}")
+    @GetMapping("/films/{id}")
     public Map<String, Object> getFilmSchedule(@PathVariable("id") Long id){
         Map<String, Object> result = new HashMap<>();
         var film = filmService.getFilm(id);

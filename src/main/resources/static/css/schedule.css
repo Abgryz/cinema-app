@@ -27,7 +27,7 @@ tr{
 }
 
   
-table a {
+.ticket-button {
   display: block;
   background-color: #007aff;
   color: #fff;
@@ -40,6 +40,6 @@ table a {
   transition: background-color 0.3s ease;
 }
 
-table a:hover {
+.ticket-button:hover {
   background-color: #0051a8;
 }

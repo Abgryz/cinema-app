@@ -16,4 +16,7 @@ public interface TicketSalesRepository extends JpaRepository<TicketSales, Ticket
 
     @Query(value = "select * from ticket_sales where ticket_id = :id", nativeQuery = true)
     Optional<TicketSales> findById(@Param("id") Long id);
+
+//    @Query(value = "select * from ticket_sales where is_booking = true and cl_email = :email", nativeQuery = true)
+//    List<TicketSales> findBookingByClient(@Param("email") String email);
 }

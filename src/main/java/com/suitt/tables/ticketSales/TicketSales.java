@@ -17,6 +17,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class TicketSales {
     @EmbeddedId
     private TicketSalesPK ticketSalesPK;

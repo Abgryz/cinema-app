@@ -8,21 +8,25 @@
     <body>
         <main class="box">
             <section class="container box">
-
-                <!-- <div th:if="${param.error}">
+                
+                <div th:if="${param.error}">
                     Invalid username and password.
                 </div>
                 <div th:if="${param.logout}">
                     You have been logged out.
-                </div> -->
-                <form th:action="@{/register}" method="post" class="login-form box">
-                    <div><label class="h">User Name:</label><input type="text" name="username" class="textbox"/></div>
-                    <div><label class="h">Password:</label><input type="password" name="password" class="textbox"/></div>
-                    <div><label class="h">Repeat password:</label><input type="password" name="repeat-password" class="textbox"/></div>
-                    <div><input type="submit" value="Register"/></div>
+                </div>
+
+                <form action="/register" method="post" class="login-form box">
+                    <div><label class="h">User Name:</label><input type="text" name="username" class="textbox" required/></div>
+                    <div><label class="h">Password:</label><input type="password" name="password" class="textbox" required/></div>
+                    <div><label class="h">Repeat password:</label><input type="password" name="repeat-password" class="textbox" required/></div>
+                    <div class="buttons">
+                        <input type="button" value="Log In" class="form-button" onclick="redirectToLogin()"/>
+                        <input type="submit" value="Register" class="form-button" onsubmit="checkPasswords()"/>
+                    </div>
                 </form>
-                
             </section>
         </main>
+        <script src="/scripts/register.js"></script>
     </body>
 </html>

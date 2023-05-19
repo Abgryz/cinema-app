@@ -4,7 +4,7 @@
 
 .seats{
     display: inline-block;
-    padding: 20px;
+    padding: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
 }
@@ -14,10 +14,8 @@
 }
 
 .seat {
-    display: block;
     background-color: #007aff;
     color: #fff;
-    padding: 20px 20px;
     border-radius: 5px;
     text-align: center;
     text-decoration: none;
@@ -25,8 +23,8 @@
     font-size: 16px;
     transition: background-color 0.3s ease;
 
-    width: 84px;
-    height: 84px;
+    width: 50px;
+    height: 50px;
 }
 .seat:hover {
     background-color: #0051a8;

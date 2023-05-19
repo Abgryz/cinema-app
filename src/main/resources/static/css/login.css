@@ -23,12 +23,6 @@ main{
     align-items: center;
     margin-bottom: 10px;
 }
-.login-form div:last-of-type{
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    margin-bottom: 0;
-}
 .textbox{
     padding: 5px 10px;
     border-radius: 50px;
@@ -39,4 +33,9 @@ main{
 }
 .login-form label{
     font-size: 18px;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-evenly;
 }

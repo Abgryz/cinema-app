@@ -8,6 +8,10 @@ import com.suitt.tables.employee.EmployeeDto;
 import com.suitt.tables.employee.EmployeeRepository;
 import com.suitt.tables.employee.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -68,4 +72,7 @@ public class UserService {
                 .orElse(null);
     }
 
+    public static Authentication authentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
 }

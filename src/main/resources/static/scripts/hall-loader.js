@@ -1,14 +1,13 @@
-const halls = document.getElementById('genres');
+const halls = document.getElementById('hall');
 
-fetch('/api/admins/films') 
+fetch('/api/admins/cinemashows') 
   .then((response) => response.json())
   .then((data) => {
     halls.innerHTML = '';
-    
-    data.forEach(genre => {
+    data.forEach(hall => {
       const option = document.createElement('option');
-      option.value = genre.name;
-      option.textContent = genre.name;
+      option.value = hall.id;
+      option.textContent = hall.id;
       halls.appendChild(option);
     });
   })

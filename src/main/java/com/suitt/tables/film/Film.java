@@ -21,7 +21,8 @@ import java.util.List;
 @Builder
 public class Film {
     @Id
-    @GeneratedValue
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id")
     private Long id;
 

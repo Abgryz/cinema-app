@@ -16,4 +16,9 @@ public class AdminController {
         return "film-adding";
     }
 
+    @GetMapping("/cinemashows")
+    public String cinemaShows(Model model){
+        return "cinemashow-adding";
+    }
+
 }

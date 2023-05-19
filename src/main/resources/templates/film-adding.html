@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="UTF-8">
-    <title>Додавання фільму</title>
+    <title>Додання фільму</title>
     <link rel="stylesheet" href="/css/index.css">
 
-    <link rel="stylesheet" href="/css/film-adding.css">
+    <link rel="stylesheet" href="/css/admins.css">
   </head>
 
   <body>
@@ -13,7 +13,7 @@
       <header th:replace="~{fragments/header :: header}"></header>
       <main class="box">
 
-        <form class="film-adding-form box" method="post">
+        <form class="adding-form box" method="post" action="/api/admins/films">
           <div class="component box">
             <label for="name" class="h">Назва: </label>
             <input type="text" id="name" name="name" class="textbox" required>
@@ -58,6 +58,10 @@
       </main>
     </div>
     <script src="/scripts/genre-loader.js"></script>
-    <script src="/scripts/date-limiter.js"></script>
+    <script>
+      const rentalDateInput = document.getElementById("rentalDate");
+      const currentDate = new Date().toISOString().split("T")[0];
+      rentalDateInput.setAttribute("max", currentDate);
+    </script>
   </body>
 </html>    

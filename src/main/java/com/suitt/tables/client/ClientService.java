@@ -2,15 +2,6 @@ package com.suitt.tables.client;
 
 import com.suitt.security.user.Role;
 import com.suitt.security.user.UserDto;
-import com.suitt.security.user.UserEntity;
-import com.suitt.security.user.UserService;
-import com.suitt.tables.employee.Employee;
-import com.suitt.tables.employee.EmployeeDto;
-import com.suitt.tables.employee.EmployeeRepository;
-import com.suitt.tables.film.Film;
-import com.suitt.tables.film.FilmRepository;
-import com.suitt.tables.jobTittle.JobTittleRepository;
-import com.suitt.tables.ticketSales.TicketSales;
 import com.suitt.tables.ticketSales.TicketSalesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,7 +27,7 @@ public class ClientService {
                                 .getTicket()
                                 .getId())
                         .collect(Collectors.toList()))
-                .role(Role.USER.name())
+                .role(Role.ROLE_USER.name())
                 .password(client.getPassword())
                 .active(client.isActive())
                 .build();

@@ -15,13 +15,22 @@
                 <div th:if="${param.logout}">
                     You have been logged out.
                 </div>
+                
                 <form th:action="@{/login}" method="post" class="login-form box">
-                    <div><label class="h">User Name:</label><input type="text" name="username" class="textbox"/></div>
-                    <div><label class="h">Password:</label><input type="password" name="password" class="textbox"/></div>
-                    <div><input type="submit" value="Sign In" class="form-button"/></div>
+                    <div><label class="h">User Name:</label><input type="text" name="username" class="textbox" required/></div>
+                    <div><label class="h">Password:</label><input type="password" name="password" class="textbox" required/></div>
+                    <div class="buttons">
+                        <input type="button" value="Register" class="form-button" onclick="redirectToRegister()"/>
+                        <input type="submit" value="Log In" class="form-button"/>
+                    </div>
                 </form>
                 
             </section>
         </main>
+        <script>
+            function redirectToRegister() {
+                window.location.assign("/register");
+            }
+        </script>
     </body>
 </html>

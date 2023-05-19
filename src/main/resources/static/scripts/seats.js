@@ -14,6 +14,12 @@ fetch("/api/schedule/" + id)
                 currentRow = seatData.seat.row
                 const row = document.createElement('tr')
                 row.classList.add("table-row")
+
+                rowCounter = document.createElement("td")
+                rowCounter.textContent = "Ряд " + currentRow
+
+                row.appendChild(rowCounter)
+
                 tableCreater(row, seatData)
                 tbody.appendChild(row)
             }
@@ -61,7 +67,7 @@ function formLoader(button){
     const label = document.getElementById("form-label")
     label.textContent = "Ви дійсно бажаєте забронювати квиток на обране вами місце?"
 
-    const hidden = document.getElementById("hidden-id")
+    const hidden = document.getElementById("ticketId")
     hidden.value = button.id
 
     const cancelButton = document.getElementById("cancel-button")

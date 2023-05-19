@@ -28,5 +28,4 @@ public class UserEntity {
     protected String password;
 
     protected boolean active;
-//    private String role;
 }
