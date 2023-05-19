@@ -1,4 +1,4 @@
-package com.suitt.security.user;
+package com.suitt.security.user.details;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

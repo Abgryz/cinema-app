@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <title>Бронювання квитка</title>
+    <link rel="stylesheet" href="/css/index.css">
+
+    <link rel="stylesheet" href="/css/films.css">
+    <link rel="stylesheet" href="/css/seats.css">
+    <script src="/scripts/seats.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <header th:replace="~{fragments/header :: header}"></header>
+      <main>
+
+        <section class="film-card">
+            <a th:href='${"/films/" + film.id}'>
+              <div>
+                <h3 th:text="${film.filmName()}" class="h"></h3>
+              </div>
+              <img th:src="${film.image()}" height="300", width="225">
+            </a>
+            <div class="film-info">
+              <p><b>Дата та час: </b><span th:text="${#temporals.format(cinemaShow.dateAndTime, 'yyyy-MM-dd HH:mm')}"></span></p>
+              <p><b>Номер зали: </b><span th:text="${cinemaShow.hallId}"></span></p>
+              <p th:text="${description}"></p>
+            </div>
+        </section>
+        
+        <section class="seats">
+          <h2 class="h">Оберіть вільне місце:</h2>
+            <table>
+              <tbody class="seats-tbody" id="seats-body">
+              </tbody>
+            </table>
+            <form method="post" class="disabled" id="seat-form">
+              <label id="form-label"></label>
+              <div class="disabled" id="seat-form-div">
+                <input type="button" id="cancel-button">
+                <input type="submit" id="confirm-button" value="">
+              </div>
+              <input type="hidden" value="0" id="hidden-id">
+            </form>
+        </section>
+
+      </main>
+    </div>
+  </body>
+</html>    

@@ -30,6 +30,7 @@ public class SeatService {
                 .seatNumber(seat.getSeatNumber())
                 .row(seat.getRow())
                 .hall(seat.getHall().getId())
+                .priceCoefficient(seat.getPriceCoefficient())
                 .tickets(seat.getTickets().stream()
                         .map(Ticket::getId)
                         .collect(Collectors.toList()))

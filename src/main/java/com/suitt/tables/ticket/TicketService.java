@@ -17,13 +17,19 @@ public class TicketService {
                 .orElse(null);
     }
 
+    public List<TicketDto> getByCinemaShow(Long cinemaShowId){
+        return repository.findByCinemaShow(cinemaShowId).stream()
+                .map(TicketService::mapTicket)
+                .collect(Collectors.toList());
+    }
+
     public List<TicketDto> getAll(){
         return repository.findAll().stream()
                 .map(TicketService::mapTicket)
                 .collect(Collectors.toList());
     }
 
-    private static TicketDto mapTicket(Ticket ticket){
+    public static TicketDto mapTicket(Ticket ticket){
         return TicketDto.builder()
                 .price(ticket.getPrice())
                 .id(ticket.getId())

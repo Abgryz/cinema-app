@@ -1,6 +1,6 @@
 package com.suitt.security.config;
 
-import com.suitt.security.user.detail.UserDetailsServiceImpl;
+import com.suitt.security.user.details.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

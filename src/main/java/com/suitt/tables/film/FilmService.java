@@ -21,6 +21,13 @@ public class FilmService {
                 .orElse(null);
     }
 
+    public FilmDto getByCinemaShow(Long cinemaShowId){
+        return repository.findByCinemaShowId(cinemaShowId)
+                .map(FilmService::mapFilm)
+                .orElse(null);
+
+    }
+
     public List<FilmDto> getAll(){
         return repository.findAll().stream()
                 .map(FilmService::mapFilm)

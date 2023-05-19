@@ -1,4 +1,4 @@
-package com.suitt.security.user.detail;
+package com.suitt.security.user.details;
 
 import com.suitt.security.user.UserService;
 import lombok.RequiredArgsConstructor;

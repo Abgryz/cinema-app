@@ -1,6 +1,5 @@
 package com.suitt.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.suitt.tables.cinemaShow.CinemaShowService;
 import com.suitt.tables.film.FilmDto;
 import com.suitt.tables.film.FilmService;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-public class MainController {
+public class GetController {
     private final FilmService filmService;
     private final CinemaShowService cinemaShowService;
     private final HallService hallService;
@@ -74,7 +73,15 @@ public class MainController {
 
     @GetMapping("/register")
     public String register(Model model){
-        System.out.println(123123123);
         return "register";
+    }
+
+    @GetMapping("/schedule/seats/{id}")
+    public String tickets(Model model, @PathVariable Long id){
+        FilmDto filmDto = filmService.getByCinemaShow(id);
+        model.addAttribute("film", filmDto);
+        model.addAttribute("cinemaShow", cinemaShowService.getCinemaShow(id));
+        model.addAttribute("description", filmDto.description());
+        return "seats";
     }
 }
