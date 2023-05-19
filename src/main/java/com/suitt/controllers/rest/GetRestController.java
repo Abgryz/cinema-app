@@ -1,4 +1,4 @@
-package com.suitt.controllers;
+package com.suitt.controllers.rest;
 
 import com.suitt.security.user.UserService;
 import com.suitt.tables.cinemaShow.CinemaShowService;

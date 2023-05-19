@@ -37,3 +37,9 @@
     align-items: center;
     justify-content: center;
 }
+
+.film-card h3{
+    display: flex;
+    min-height: 40px;
+    align-items: center;
+}

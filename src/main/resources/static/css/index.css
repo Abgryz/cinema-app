@@ -22,99 +22,12 @@ body {
   border-radius: 20px;
 }
 
-
-nav {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 5px;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  align-items:center;
-}
-
-.nav-main{
-  display: flex;
-  align-items: center;
-  padding: 12px;
-
-  margin: 4px;
-  border-radius: 10px;
-  margin-left: 5px;
-  color: black;
-  text-decoration: none;
-}
-.nav-main img{
-  margin-right: 10px;
-}
-.nav-button{
-  margin: 4px;
-  border-radius: 10px;
-  display: inline-block;
-}
-.nav-button:hover, .nav-main:hover{
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-.nav-button{
-  text-decoration: none;
-  color: #000000;
-  font-size: 20px;
-  display: inline-block;
-  padding: 16px;
-}
-
-.nav-search-input{
-  padding: 5px 10px;
-  border-radius: 50px;
-  min-width: 300px;
-  background-color: rgba(255, 255, 255, 0.1);
-
-  /* font-family: 'Montserrat', sans-serif; */
-  font-size: 20px;
-}
-.nav-search-input::placeholder{
-  /* font-family: 'Montserrat', sans-serif; */
-  font-weight: bold;
-  color: black;
-}
-.nav-search-input:hover{
-  background-color: rgba(255, 255, 255, 0.2);
-}
-.nav-search-button{
-  padding: 15px;
-  height: 17px;
-  width: 17px;
-  background-image: url('/images/icons/search.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  border: none;
-}
-
-nav form{
-  display: flex;
-  align-items: center;
-}
-
 .h{
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
-}
-
-.nav-profile{
-  margin: 0 15px;
-  display: inline-block;
-}
-.nav-profile:hover{
-  background-color: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  transform: scale(1.1);
+    /* color: white;
+  -webkit-text-stroke: 1px black;
+  text-stroke: 1px black; */
 }
 
 .box{
@@ -126,24 +39,14 @@ main{
   border-radius: 0 !important;
 }
 
-
-
-/* .nav-search-button{
-  position: absolute;
-  left: 5px;
+.form-button{
+  padding: 15px;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  font-size: 16px;
+  font-weight: 300;
 }
-.nav-search-input{
-  width: 41px;
-  min-width: 0;
-  transition: transform 0.9s ease-in-out;
+.form-button:hover{
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
 }
-nav form{
-  position: relative;
-  width: 41px;
-}
-
-.nav-search-input:hover{
-  width: auto;
-  min-width: 300px;
-
-} */

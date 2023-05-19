@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="UTF-8">
     <title>Кінотеатр</title>
@@ -17,7 +17,7 @@
         </a>
 
         <section class="film-card box">
-          <h2 class="h">Наші новинки:</h3>
+          <h2 class="h">Наші новинки:</h2>
           <div>
             <th:block th:each="film : ${newFilms}">
               <a th:href='${"/films/" + film.id}' class=" box">

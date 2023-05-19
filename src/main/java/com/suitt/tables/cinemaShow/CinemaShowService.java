@@ -24,14 +24,20 @@ public class CinemaShowService {
                 .collect(Collectors.toList());
     }
 
+    public CinemaShowDto getNotStarted(Long id){
+        return repository.findNotStarted(id)
+                .map(CinemaShowService::mapCinemaShow)
+                .orElseThrow();
+    }
+
     public List<CinemaShowDto> getNearest(int limit){
-        return repository.getNearestCinemaShows(limit).stream()
+        return repository.findNearestCinemaShows(limit).stream()
                 .map(CinemaShowService::mapCinemaShow)
                 .collect(Collectors.toList());
     }
 
     public List<CinemaShowDto> getNearestByFilmId(Long filmId, int limit){
-        return repository.getNearestByFilmId(filmId, limit).stream()
+        return repository.findNearestByFilmId(filmId, limit).stream()
                 .map(CinemaShowService::mapCinemaShow)
                 .collect(Collectors.toList());
     }

@@ -86,11 +86,6 @@ main{
 
     margin-bottom: 20px;
 }
-.film-card h3{
-    display: flex;
-    min-height: 40px;
-    align-items: center;
-}
 .film-info{
     text-align: start;
     padding-left: 20px;

@@ -18,7 +18,6 @@ import java.util.Collections;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -31,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     }
                     return new User(
                             user.getEmail(),
-                            passwordEncoder.encode(user.getPassword()),
+                            user.getPassword(),
                             Collections.singletonList(new SimpleGrantedAuthority(user.getRole()))
                     );
                 })

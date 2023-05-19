@@ -32,35 +32,35 @@ public class WebSecurityConfig {
                 "/scripts/**",
                 "/files/**"
         };
-
-        String[] htmlResources ={
-                "/index","index.html",
-                "/startPage","startPage.html",
-                "/registration","registration.html",
-                "/login","login.html",
-                "/afterAuthStartPage","afterAuthStartPage.html",
-                "/profilePage/**","profilePage.html",
-
-        };
-
-        String[] afterAuthHtmlResources ={
-
-        };
+//        String[] htmlResources ={
+//                "/index","index.html",
+//                "/startPage","startPage.html",
+//                "/registration","registration.html",
+//                "/login","login.html",
+//                "/afterAuthStartPage","afterAuthStartPage.html",
+//                "/profilePage/**","profilePage.html",
+//
+//        };
+//        String[] afterAuthHtmlResources ={
+//
+//        };
 
         http.authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/").permitAll()
                         .requestMatchers(staticResources).permitAll()
-                        .requestMatchers(htmlResources).permitAll()
-                        .requestMatchers("/**").permitAll()
-                        .requestMatchers("/registration/users/register","/users/register","/register").permitAll()
+//                        .requestMatchers(htmlResources).permitAll()
+//                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/register","/", "/films", "/films/**", "/schedule", "/search", "/login").permitAll()
+                        .requestMatchers("api/register","api/", "api/films", "api/film/**", "api/schedule").permitAll()
+
                         .requestMatchers("/fragments/header").permitAll()
                         .requestMatchers("/admins/**").hasAnyAuthority("MANAGER", "CASHIER")
-                        .requestMatchers(afterAuthHtmlResources).hasAnyAuthority("USER", "MANAGER", "CASHIER")
+//                        .requestMatchers(afterAuthHtmlResources).hasAnyAuthority("USER", "MANAGER", "CASHIER")
                         .anyRequest().authenticated())
                 .formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/login")
-                    .defaultSuccessUrl("/home",true)
+                    .defaultSuccessUrl("/",true)
                     .failureUrl("/login?error")
                     .and()
                 .logout()

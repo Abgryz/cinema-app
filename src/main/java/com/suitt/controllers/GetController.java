@@ -1,5 +1,6 @@
 package com.suitt.controllers;
 
+import com.suitt.tables.cinemaShow.CinemaShowDto;
 import com.suitt.tables.cinemaShow.CinemaShowService;
 import com.suitt.tables.film.FilmDto;
 import com.suitt.tables.film.FilmService;
@@ -80,7 +81,7 @@ public class GetController {
     public String tickets(Model model, @PathVariable Long id){
         FilmDto filmDto = filmService.getByCinemaShow(id);
         model.addAttribute("film", filmDto);
-        model.addAttribute("cinemaShow", cinemaShowService.getCinemaShow(id));
+        model.addAttribute("cinemaShow", cinemaShowService.getNotStarted(id));
         model.addAttribute("description", filmDto.description());
         return "seats";
     }
