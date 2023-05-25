@@ -45,6 +45,7 @@ public class GetRestController {
 
     @GetMapping("/schedule/{id}")
     public List<?> tickets(@PathVariable("id") Long id){
+        System.out.println(123123);
         return ticketSalesService.ticketsToMap(ticketService.getByCinemaShow(id));
     }
 }

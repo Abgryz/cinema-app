@@ -1,6 +1,6 @@
 const halls = document.getElementById('hall');
 
-fetch('/api/admins/cinemashows') 
+fetch('/api/admins/shows') 
   .then((response) => response.json())
   .then((data) => {
     halls.innerHTML = '';

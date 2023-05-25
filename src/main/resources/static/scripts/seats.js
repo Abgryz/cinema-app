@@ -3,6 +3,7 @@ let id = url.substring(url.lastIndexOf('/') + 1);
 fetch("/api/schedule/" + id)
     .then(response => response.json())
     .then(data => {
+        console.log(data)
         const tbody = document.querySelector(".seats-tbody");
         currentRow = 0;
         data.forEach(seatData => {
@@ -29,13 +30,17 @@ fetch("/api/schedule/" + id)
         const buttons = document.querySelectorAll(".seat")
         buttons.forEach(button => {
             button.addEventListener('click', () => {
-                formLoader(button)
+                onSeatButtonClick(button)
 
                 buttons.forEach(button => button.classList.remove("active"))
                 button.classList.add("active")
             });
-          })
+        })
     })
+    // .then(() => {
+    //     const form = document.querySelector("#seat-form")
+    //     form.action = form.action + "/" + id
+    // })
 
 function tableCreater(row, seatData){
     const rowCell = document.createElement('td')
@@ -58,22 +63,38 @@ function buttonCreater(seatData){
     return button
 }
 
-function formLoader(button){
-    const form = document.getElementById("seat-form")
-    form.classList.remove("disabled")
-    const div = document.getElementById("seat-form-div")
-    div.classList.remove("disabled")
+function onSeatButtonClick(button){
 
-    const label = document.getElementById("form-label")
-    label.textContent = "Ви дійсно бажаєте забронювати квиток на обране вами місце?"
+    if(confirm("Ви дійсно бажаєте забронювати квиток на обране вами місце?")){
+        fetch('/api/schedule/' + id + "?seatId=" + button.id, {method: 'POST'})
+        .then(response => {
+            if (response.ok) {
+                button.disabled = true
+                button.classList.add("busy")
+                button.classList.remove("active")
+            } else {
+                alert("Виникла помилка!")
+            }
+          })
+        .catch(error => {console.log(error)});
+    }
 
-    const hidden = document.getElementById("ticketId")
-    hidden.value = button.id
 
-    const cancelButton = document.getElementById("cancel-button")
-    cancelButton.addEventListener('click', () => {
-        form.classList.add("disabled")
-        div.classList.add("disabled")
-        button.classList.remove("active")
-    })
+    // const form = document.getElementById("seat-form")
+    // form.classList.remove("disabled")
+    // const div = document.getElementById("seat-form-div")
+    // div.classList.remove("disabled")
+
+    // const label = document.getElementById("form-label")
+    // label.textContent = "Ви дійсно бажаєте забронювати квиток на обране вами місце?"
+
+    // const hidden = document.getElementById("seatId")
+    // hidden.value = button.id
+
+    // const cancelButton = document.getElementById("cancel-button")
+    // cancelButton.addEventListener('click', () => {
+    //     form.classList.add("disabled")
+    //     div.classList.add("disabled")
+    //     button.classList.remove("active")
+    // })
 }

@@ -43,7 +43,8 @@ select.textbox {
 
 .button-container{
     width: 100%;
-    text-align: end;
+    display: flex;
+    justify-content: space-between;
 }
 
 label{

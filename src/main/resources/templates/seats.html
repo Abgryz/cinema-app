@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="/css/films.css">
     <link rel="stylesheet" href="/css/seats.css">
-    <script src="/scripts/seats.js"></script>
   </head>
 
   <body>
@@ -35,17 +34,21 @@
               <tbody class="seats-tbody" id="seats-body">
               </tbody>
             </table>
-            <form method="post" class="disabled box" id="seat-form" action="/api/schedule">
+
+            <!-- <form method="post" class="disabled box" id="seat-form" action="/api/schedule">
               <label id="form-label"></label>
               <div class="disabled" id="seat-form-div">
                 <input type="button" id="cancel-button">
                 <input type="submit" id="confirm-button" value="">
               </div>
-              <input type="hidden" value="0" id="ticketId" name="ticketId">
-            </form>
+              <input type="hidden" value="0" id="seatId" name="seatId">
+            </form> -->
         </section>
 
       </main>
     </div>
+
+    <script src="/scripts/seats.js"></script>
+    <script></script>
   </body>
 </html>    

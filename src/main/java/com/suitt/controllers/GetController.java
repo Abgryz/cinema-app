@@ -1,5 +1,7 @@
 package com.suitt.controllers;
 
+import com.suitt.security.user.Role;
+import com.suitt.security.user.UserDto;
 import com.suitt.security.user.UserService;
 import com.suitt.tables.cinemaShow.CinemaShowDto;
 import com.suitt.tables.cinemaShow.CinemaShowService;
@@ -8,11 +10,17 @@ import com.suitt.tables.film.FilmService;
 import com.suitt.tables.hall.HallService;
 import com.suitt.tables.ticket.TicketRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -78,25 +86,5 @@ public class GetController {
         model.addAttribute("cinemaShow", cinemaShowService.getNotStarted(id));
         model.addAttribute("description", filmDto.description());
         return "seats";
-    }
-
-    @GetMapping("/profile")
-    public String profile(Model model){
-        model.addAttribute("user", userService.getUser(UserService.authentication().getName()).orElseThrow());
-
-        model.addAttribute("ticketsData", ticketRepository.findTicketBookingDataByClient(UserService.authentication().getName()));
-
-        return "profile";
-    }
-
-
-    @GetMapping("/login")
-    public String login(Model model){
-        return "login";
-    }
-
-    @GetMapping("/register")
-    public String register(Model model){
-        return "register";
     }
 }

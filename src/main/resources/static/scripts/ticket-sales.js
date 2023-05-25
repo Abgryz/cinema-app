@@ -1,8 +1,8 @@
 function onCancelButtonClick(ticketId){
-    if (confirm("Ви справді бажаєте відмінити бронювання квитка на цей сеанс?")) {
+    if (confirm("Ви справді бажаєте відмінити бронювання квитка?")) {
         console.log("button", ticketId)
 
-        fetch('/api/cancel-booking/' + ticketId, {
+        fetch('/api/admins/cancel-booking/' + ticketId, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -16,9 +16,4 @@ function onCancelButtonClick(ticketId){
             console.log(error)
         });
     }
-}
-
-
-function onProfileFormSubmit(){
-    
 }

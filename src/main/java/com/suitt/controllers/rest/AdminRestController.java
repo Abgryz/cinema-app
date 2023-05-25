@@ -10,14 +10,12 @@ import com.suitt.tables.genre.GenreDto;
 import com.suitt.tables.genre.GenreService;
 import com.suitt.tables.hall.HallDto;
 import com.suitt.tables.hall.HallService;
+import com.suitt.tables.ticketSales.TicketSalesDto;
+import com.suitt.tables.ticketSales.TicketSalesService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.beans.Transient;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,6 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/admins")
 public class AdminRestController {
+    private final TicketSalesService ticketSalesService;
     private final GenreService genreService;
     private final FilmService filmService;
     private final HallService hallService;
@@ -40,7 +39,7 @@ public class AdminRestController {
 
     @PostMapping("/films")
     @Transactional
-    public void postFilm(@RequestParam("name") String name,
+    public Response postFilm(@RequestParam("name") String name,
                              @RequestParam("duration") LocalTime duration,
                              @RequestParam("filmDirector") String filmDirector,
                              @RequestParam("cast") String cast,
@@ -63,18 +62,18 @@ public class AdminRestController {
                 .build();
 
         filmService.createWithGenres(filmDto);
-//        return Response.ok(null);
+        return Response.ok(null);
     }
 
-    @GetMapping("/cinemashows")
+    @GetMapping("/shows")
     public List<HallDto> cinemaShows(){
         return hallService.getAll();
     }
 
 
-    @PostMapping("/cinemashows")
+    @PostMapping("/shows")
     @Transactional
-    public void postCinemaShow(@RequestParam("filmId") Long filmId,
+    public Response postCinemaShow(@RequestParam("filmId") Long filmId,
                                    @RequestParam("time") LocalTime time,
                                    @RequestParam("date") LocalDate date,
                                    @RequestParam("hallId") Long hallId,
@@ -86,6 +85,40 @@ public class AdminRestController {
                 .dateAndTime(LocalDateTime.of(date, time))
                 .build();
         cinemaShowService.createCinemaShowWithTickets(cinemaShowDto, price);
-//        return Response.ok(null);
+        return Response.ok(null);
+    }
+
+    @PostMapping("/ticket-sales")
+    @Transactional
+    public Response createOrUpdateTicketSales(@RequestParam("ticketId") Long ticketId,
+                                              @RequestParam("email") String email){
+
+        TicketSalesDto ticketSalesDto = TicketSalesDto.builder()
+                .employee(UserService.authentication().getName())
+                .client(email)
+                .ticket(ticketId)
+                .isBooking(false)
+                .saleDate(LocalDate.now())
+                .build();
+        if(!ticketSalesService.existsByIdAndClient(ticketId, email) || ticketSalesService.getTicketSales(ticketId).isBooking()){
+            ticketSalesService.save(ticketSalesDto);
+            System.out.println("TicketSale created or updated");
+            return Response.ok(null);
+        } else {
+            return Response.fail();
+        }
+    }
+
+    @DeleteMapping("/cancel-booking/{ticketId}")
+    @Transactional
+    public Response cancelBooking(@PathVariable Long ticketId){
+        TicketSalesDto ticketSalesDto = ticketSalesService.getTicketSales(ticketId);
+
+        if(ticketSalesDto.isBooking()){
+            ticketSalesService.delete(ticketId);
+            return Response.ok(null);
+        } else {
+            return Response.fail();
+        }
     }
 }

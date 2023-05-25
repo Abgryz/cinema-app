@@ -56,6 +56,12 @@ public class CinemaShowService {
                 .collect(Collectors.toList());
     }
 
+    public CinemaShowDto getByTicket(Long ticketId){
+        return cinemaShowRepository.findByTicketId(ticketId)
+                .map(CinemaShowService::mapCinemaShow)
+                .orElse(null);
+    }
+
     private static CinemaShowDto mapCinemaShow(CinemaShow cinemaShow){
         return CinemaShowDto.builder()
                 .dateAndTime(cinemaShow.getDateAndTime().toLocalDateTime())

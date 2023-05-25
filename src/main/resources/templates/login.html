@@ -9,15 +9,15 @@
         <main class="box">
             <section class="container box">
 
-                <div th:if="${param.error}">
+                <div th:if="${param.error}" class="error h">
                     Invalid username and password.
                 </div>
-                <div th:if="${param.logout}">
+                <div th:if="${param.logout}" class="error h">
                     You have been logged out.
                 </div>
                 
                 <form th:action="@{/login}" method="post" class="login-form box">
-                    <div><label class="h">User Name:</label><input type="text" name="username" class="textbox" required/></div>
+                    <div><label class="h">User Name:</label><input type="email" name="username" class="textbox" required/></div>
                     <div><label class="h">Password:</label><input type="password" name="password" class="textbox" required/></div>
                     <div class="buttons">
                         <input type="button" value="Register" class="form-button" onclick="redirectToRegister()"/>

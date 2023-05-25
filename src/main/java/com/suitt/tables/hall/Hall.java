@@ -15,7 +15,7 @@ public class Hall{
     @Column(name = "hall_id")
     private Long id;
 
-    private int seatCount;
+//    private int seatCount;
 
     private String hallType;
 

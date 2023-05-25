@@ -5,7 +5,6 @@ import com.suitt.tables.hall.Hall;
 import com.suitt.tables.ticket.Ticket;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,7 +25,7 @@ public class Seat {
     @JoinColumn(name = "hall_id")
     private Hall hall;
 
-    private int row;
+    private int seatRow;
 
     @Column(name = "seat_num")
     private int seatNumber;

@@ -28,7 +28,7 @@ public class SeatService {
         return SeatDto.builder()
                 .id(seat.getId())
                 .seatNumber(seat.getSeatNumber())
-                .row(seat.getRow())
+                .row(seat.getSeatRow())
                 .hall(seat.getHall().getId())
                 .priceCoefficient(seat.getPriceCoefficient())
                 .tickets(seat.getTickets().stream()

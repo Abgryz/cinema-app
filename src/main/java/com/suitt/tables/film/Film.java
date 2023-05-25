@@ -28,9 +28,9 @@ public class Film {
 
     private LocalDate rentalDate;
 
-    private Time filmDuration;
+    private Time duration;
 
-    private String filmDirectorFullName;
+    private String directorFullName;
 
     private String filmCast;
 

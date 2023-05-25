@@ -3,10 +3,8 @@ package com.suitt.security.config;
 import com.suitt.security.user.Role;
 import com.suitt.security.user.details.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,54 +19,57 @@ public class WebSecurityConfig {
     private final String MANAGER = Role.ROLE_MANAGER.name();
     private final String CASHIER = Role.ROLE_CASHIER.name();
 
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userDetailsService);
-//    }
+    private final static String[] STATIC_RESOURCES =  {
+            "/css/**",
+            "/images/**",
+            "/fonts/**",
+            "/scripts/**",
+            "/files/**"
+    };
+    private final static String[] HTML_RESOURCES ={
+            "/",
+            "/films/**",
+            "/register",
+            "/schedule",
+            "/search",
+            "/login",
+            "/fragments/header"
+    };
+    private final static String[] USER_RESOURCES = {
+            "/profile",
+            "/schedule/**"
+//                "/api/profile",
+//            "/api/schedule/**"
+    };
+    private final static String[] MANAGER_RESOURCES = {
+            "/admins/films",
+            "/admins/shows",
+            "/api/admins/films",
+            "/api/admins/shows"
+    };
+    private final static String[] CASHIER_RESOURCES = {
+            "/admins/ticket-sales",
+            "/api/admins/ticket-sales"
+    };
+
+//    private final static String[] REST_RESOURCES = {
+//            "/api/",
+//            "/api/films/**",
+//            "/api/register",
+//            "/api/schedule"
+//    };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-        String[] staticResources  =  {
-                "/css/**",
-                "/images/**",
-                "/fonts/**",
-                "/scripts/**",
-                "/files/**"
-        };
-        String[] htmlResources ={
-                "/",
-                "/films/**",
-                "/register",
-                "/schedule",
-                "/search",
-                "/login"
-        };
-        String[] restResources = {
-                "/api/",
-                "/api/films/**",
-                "/api/register",
-                "/api/schedule"
-        };
-
-        String[] managerResources = {
-                "/api/admins/films",
-                "/api/admins/cinemashows"
-        };
-        String[] cashierResources = {
-                "/api/admins/tickets"
-        };
         http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers( "/register", "/api/register", "/registration/users/register", "/users/register").permitAll()
-                        .requestMatchers(staticResources).permitAll()
-                        .requestMatchers(htmlResources).permitAll()
-                        .requestMatchers(restResources).permitAll()
+                        .requestMatchers(STATIC_RESOURCES).permitAll()
+                        .requestMatchers(HTML_RESOURCES).permitAll()
+//                        .requestMatchers(REST_RESOURCES).permitAll()
 //                        .requestMatchers("/**").permitAll()
-                        .requestMatchers("/fragments/header").permitAll()
 
-                        .requestMatchers("/profile", "/api/profile").hasAnyAuthority(USER, MANAGER, CASHIER)
-                        .requestMatchers("/admins/**").hasAnyAuthority(MANAGER, CASHIER)
-                        .requestMatchers(managerResources).hasAuthority(MANAGER)
-                        .requestMatchers(cashierResources).hasAuthority(CASHIER)
+                        .requestMatchers(USER_RESOURCES).hasAnyAuthority(USER, MANAGER, CASHIER)
+//                        .requestMatchers("/admins/**", "/api/admins/**").hasAnyAuthority(MANAGER, CASHIER)
+                        .requestMatchers(MANAGER_RESOURCES).hasAuthority(MANAGER)
+                        .requestMatchers(CASHIER_RESOURCES).hasAuthority(CASHIER)
                         .anyRequest().authenticated())
                 .formLogin()
                     .loginPage("/login")

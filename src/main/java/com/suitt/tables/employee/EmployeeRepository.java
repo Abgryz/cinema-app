@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
-//    @Query(value = "select * from employee", nativeQuery = true)
-//    List<Employee> findAll();
+//    void update(Employee employee);
 }
