@@ -10,6 +10,7 @@ import com.suitt.tables.film.FilmService;
 import com.suitt.tables.hall.HallService;
 import com.suitt.tables.ticket.TicketRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,9 +28,6 @@ import java.util.stream.Collectors;
 public class GetController {
     private final FilmService filmService;
     private final CinemaShowService cinemaShowService;
-    private final HallService hallService;
-    private final UserService userService;
-    private final TicketRepository ticketRepository;
 
     @GetMapping("/")
     public String home(Model model){
@@ -39,22 +37,16 @@ public class GetController {
     }
 
     @GetMapping("/films/{id}")
-    public String film(Model model, @PathVariable Long id){
+    public String film(Model model, @PathVariable Long id, Authentication authentication){
         FilmDto film = filmService.getFilm(id);
         if (film.image() == null){
             throw new RuntimeException();
         }
-
-        model.addAttribute("image", film.image());
-        model.addAttribute("filmName", film.filmName());
+        model.addAttribute("film", film);
         model.addAttribute("filmGenres",  film.filmGenres().toString().substring(1, film.filmGenres().toString().length() - 1));
-        model.addAttribute("filmDirector", film.filmDirectorFullName());
-        model.addAttribute("filmCast", film.filmCast());
-        model.addAttribute("rentalDate", film.rentalDate());
-        model.addAttribute("filmDuration", film.filmDuration());
-        model.addAttribute("description", film.description());
-        model.addAttribute("filmId", film.id());
-
+        if (UserService.getRoles(authentication).contains(Role.ROLE_MANAGER.name())){
+            model.addAttribute("isManager", true);
+        }
         return "film";
     }
 
@@ -75,7 +67,12 @@ public class GetController {
     }
 
     @GetMapping("/schedule")
-    public String schedule(Model model){
+    public String schedule(Model model, Authentication authentication){
+        List<Object> data = cinemaShowService.getSchedule();
+        model.addAttribute("data", data);
+        if (UserService.getRoles(authentication).contains(Role.ROLE_MANAGER.name())){
+            model.addAttribute("isManager", true);
+        }
         return "schedule";
     }
 

@@ -11,14 +11,13 @@ import com.suitt.tables.employee.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +27,8 @@ public class UserService {
     protected final EmployeeRepository employeeRepository;
     private final ClientService clientService;
     private final EmployeeService employeeService;
+    private final PasswordEncoder passwordEncoder;
+
 
     public Optional<UserDto> getUser(String email){
         return Optional.ofNullable(employeeRepository.findById(email)
@@ -39,14 +40,18 @@ public class UserService {
                 ));
     }
 
-    public void registerClient(UserDto user){
+    public void registerClient(String email, String password){
 
-        if (clientRepository.existsById(user.email)){
+        if (clientRepository.existsById(email)){
             throw new IllegalArgumentException("User already exist");
         }
-//        Client client = clientService.toEntity(user);
-        clientRepository.register(user.email, user.password);
-//        return true;
+//        clientRepository.register(user.email, user.password);
+        Client client = Client.builder()
+                .email(email)
+                .password(passwordEncoder.encode(password))
+                .active(true)
+                .build();
+        clientRepository.save(client);
     }
 
     public void updateUser(UserDto userDto){
@@ -71,6 +76,18 @@ public class UserService {
         }
     }
 
+    public static List<String> getRoles(Authentication authentication){
+        List<String> roles = new ArrayList<>();
+        try {
+            List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
+            for (var grantedAuthority : authorities) {
+                roles.add(grantedAuthority.getAuthority());
+            }
+        } catch (RuntimeException e){
+            return roles;
+        }
+        return roles;
+    }
 
     public List<UserDto> getEmployees(){
         return employeeRepository.findAll().stream()
@@ -95,9 +112,9 @@ public class UserService {
                 .orElse(null);
     }
 
-    public static Authentication authentication() {
-        return SecurityContextHolder.getContext().getAuthentication();
-    }
+//    public static Authentication authentication() {
+//        return SecurityContextHolder.getContext().getAuthentication();
+//    }
 //    public Map<String, String> getAddressAsMap(String address){
 //        Map<String, String> addressMap = new HashMap<>();
 //        String[] addressArr = address.substring(1, address.length() - 1).split(",", 4);

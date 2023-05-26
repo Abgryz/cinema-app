@@ -58,7 +58,6 @@ public class FilmService {
 
     public void createWithGenres(FilmDto filmDto){
         Film film = mapFilmDto(filmDto);
-
         filmGenreService.createGenresForFilm(
                 filmDto.toBuilder()
                     .id(filmRepository.saveAndFlush(film).getId())
@@ -66,7 +65,19 @@ public class FilmService {
         );
     }
 
+    public void updateWithGenres(FilmDto filmDto){
+        Film film = mapFilmDto(filmDto);
+        film.setId(filmDto.id());
+        filmRepository.update(film);
+        filmGenreService.deleteByFilmId(filmDto.id());
+        filmGenreService.createGenresForFilm(filmDto);
+    }
 
+    public void deleteWithGenres(Long id){
+        filmGenreService.deleteByFilmId(id);
+        filmRepository.deleteById(id);
+        System.out.println(id);
+    }
 
 
     private static FilmDto mapFilm(Film film){

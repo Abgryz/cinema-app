@@ -62,6 +62,23 @@ public class CinemaShowService {
                 .orElse(null);
     }
 
+    public void deleteWithTickets(Long id){
+        ticketRepository.deleteByCinemaShow(id);
+        cinemaShowRepository.deleteById(id);
+    }
+
+    public List<Object> getSchedule(){
+        return cinemaShowRepository.findSchedule();
+    }
+
+    public void updateCinemaShowWithTickets(CinemaShowDto cinemaShowDto, double price){
+        CinemaShow cinemaShow = mapCinemaShowDto(cinemaShowDto);
+        cinemaShow.setId(cinemaShowDto.id());
+        ticketRepository.deleteByCinemaShow(cinemaShowDto.id());
+        cinemaShowRepository.update(cinemaShow);
+        ticketService.createAllForCinemaShow(cinemaShow, price);
+    }
+
     private static CinemaShowDto mapCinemaShow(CinemaShow cinemaShow){
         return CinemaShowDto.builder()
                 .dateAndTime(cinemaShow.getDateAndTime().toLocalDateTime())

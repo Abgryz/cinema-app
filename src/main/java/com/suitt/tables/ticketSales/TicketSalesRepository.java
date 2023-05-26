@@ -2,6 +2,7 @@ package com.suitt.tables.ticketSales;
 
 import com.suitt.tables.film.Film;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -26,6 +27,7 @@ public interface TicketSalesRepository extends JpaRepository<TicketSales, Ticket
     //    @Query(value = "select * from ticket_sales where is_booking = true and cl_email = :email", nativeQuery = true)
 //    List<TicketSales> findBookingByClient(@Param("email") String email);
 
+    @Modifying
     @Query(value = "delete from ticket_sales where ticket_id = :id", nativeQuery = true)
     void deleteById(@Param("id") Long id);
 

@@ -11,11 +11,13 @@ import com.suitt.tables.ticketSales.TicketSalesService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Slf4j
 @RestController
@@ -29,10 +31,10 @@ public class UserRestController {
 
     @PostMapping("/schedule/{cinemaShowId}")
     @Transactional
-    public Response ticketBooking(@PathVariable Long cinemaShowId, @RequestParam("seatId") Long seatId){
+    public Response ticketBooking(@PathVariable Long cinemaShowId, @RequestParam("seatId") Long seatId, Authentication authentication){
         TicketSalesDto ticketSalesDto = TicketSalesDto.builder()
                 .isBooking(true)
-                .client(UserService.authentication().getName())
+                .client(authentication.getName())
                 .ticket(ticketService.findByCinemaShowAndSeat(cinemaShowId, seatId).id())
                 .build();
         ticketSalesService.save(ticketSalesDto);
@@ -43,8 +45,9 @@ public class UserRestController {
     @Transactional
     public Response updateProfile(@RequestParam(value = "fullName", required = false) String fullName,
                                   @RequestParam(value = "birthDate", required = false) LocalDate birthDate,
-                                  @RequestParam(value = "address", required = false) String address){
-        UserDto userDto = userService.getUser(UserService.authentication().getName()).orElseThrow();
+                                  @RequestParam(value = "address", required = false) String address,
+                                  Authentication authentication){
+        UserDto userDto = userService.getUser(authentication.getName()).orElseThrow();
         userService.updateUser(
                 userDto.toBuilder()
                         .birthDate(birthDate == null ? userDto.getBirthDate() : birthDate)
@@ -55,10 +58,10 @@ public class UserRestController {
         return Response.ok(null);
     }
 
-    @DeleteMapping("/cancel-booking/{ticketId}")
+    @DeleteMapping("/ticket-sales/{ticketId}")
     @Transactional
-    public Response cancelBooking(@PathVariable Long ticketId){
-        UserDto userDto = userService.getUser(UserService.authentication().getName()).orElseThrow();
+    public Response cancelBooking(@PathVariable Long ticketId, Authentication authentication){
+        UserDto userDto = userService.getUser(authentication.getName()).orElseThrow();
         TicketSalesDto ticketSalesDto = ticketSalesService.getTicketSales(ticketId);
         CinemaShowDto cinemaShowDto = cinemaShowService.getByTicket(ticketId);
 
@@ -77,22 +80,16 @@ public class UserRestController {
 
     @PostMapping("/register")
     @Transactional
-    public Response handleFormSubmit(@RequestParam("username") String username,
-                                     @RequestParam("password") String password,
-                                     @RequestParam("repeat-password") String repeatPassword,
-                                     Model model){
-
-        System.out.println("ITS WORKING");
+    public Response register(
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            @RequestParam("repeat-password") String repeatPassword){
         if (password.equals(repeatPassword)) {
-            UserDto user = UserDto.builder()
-                    .email(username)
-                    .password(password).build();
-            userService.registerClient(user);
-            log.info("User registered: " + user);
-//            return "login";
+
+            userService.registerClient(username, password);
+            log.info("User registered: " + username);
             return Response.ok(null);
         } else {
-            model.addAttribute("error", "Паролі не співпадають");
             return Response.fail();
         }
     }

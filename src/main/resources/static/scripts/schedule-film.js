@@ -1,6 +1,6 @@
 let url = window.location.pathname;
 let id = url.substring(url.lastIndexOf('/') + 1);
-fetch("/api/films/" + id)
+fetch("/api/schedule/films/" + id)
     .then(response => response.json())
     .then(data => {
         console.log(data)

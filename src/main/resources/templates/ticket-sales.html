@@ -16,16 +16,16 @@
       <main class="box">
 
         <form class="adding-form box" method="post" action="/api/admins/ticket-sales">
+          <div class="component box">
+              <label for="ticketId" class="h">Номер квитка: </label>
+              <input type="text" id="ticketId" name="ticketId" class="textbox" required>
+            </div>
             <div class="component box">
                 <label for="email" class="h">Email клієнта: </label>
                 <input type="email" id="email" name="email" class="textbox" required>
             </div>
-            <div class="component box">
-                <label for="ticketId" class="h">Номер квитка: </label>
-                <input type="text" id="ticketId" name="ticketId" class="textbox" required>
-            </div>
             <div class="button-container">
-                <div></div>
+                <button type="button" class="form-button" onclick="onDeleteButtonClick()">Видалення продажі квитків</button>
                 <input type="submit" value="Підтвердити купівлю" class="form-button" onclick="return onSubmitClick()">
             </div>
         </form>
@@ -33,15 +33,15 @@
         <section class="box">
             <h2 class="h">Інші заброньовані квитки:</h2>
             <th:block th:each="ticketSales : ${ticketsSales}">
-                <form class="adding-form box" method="post" action="/api/admins/ticket-sales">
-                    <div class="component box">
-                        <label for="email" class="h">Email клієнта: </label>
-                        <input type="email" name="email" class="textbox" required th:value="${ticketSales.client}">
-                    </div>
-                    <div class="component box">
-                        <label for="ticketId" class="h">Номер квитка: </label>
-                        <input type="text" name="ticketId" class="textbox" required th:value="${ticketSales.ticket}">
-                    </div>
+                <form class="adding-form box" method="post" action="/api/admins/ticket-sales" th:id='${"form" + ticketSales.ticket}'>
+                  <div class="component box">
+                    <label for="ticketId" class="h">Номер квитка: </label>
+                    <input type="text" name="ticketId" class="textbox" readonly th:value="${ticketSales.ticket}">
+                  </div>
+                  <div class="component box">
+                    <label for="email" class="h">Email клієнта: </label>
+                    <input type="email" name="email" class="textbox" readonly th:value="${ticketSales.client}">
+                  </div>
                     <div class="button-container">
                         <button class="form-button" onclick="onCancelButtonClick(this.getAttribute('ticketId'))" th:attr="ticketId=${ticketSales.ticket}" type="button">Видалити</button>
                         <input type="submit" value="Підтвердити купівлю" class="form-button" onclick="return onSubmitClick()">

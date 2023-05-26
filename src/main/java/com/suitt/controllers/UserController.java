@@ -21,19 +21,17 @@ public class UserController {
     @GetMapping("/profile-loader")
     public String redirectProfile(Authentication authentication){
         StringBuilder param = new StringBuilder("?");
-        List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
-        for (var grantedAuthority : authorities){
-            param.append(grantedAuthority.getAuthority().substring(5).toLowerCase()).append("&");
+        for (String role : UserService.getRoles(authentication)){
+            param.append(role.substring(5).toLowerCase()).append("&");
         }
-
         return "redirect:/profile" + param;
     }
 
     @GetMapping("/profile")
-    public String profile(Model model){
-        UserDto userDto = userService.getUser(UserService.authentication().getName()).orElseThrow();
+    public String profile(Model model, Authentication authentication){
+        UserDto userDto = userService.getUser(authentication.getName()).orElseThrow();
         model.addAttribute("user", userDto);
-        model.addAttribute("ticketsData", ticketService.getTicketBookingDataByClient(UserService.authentication().getName()));
+        model.addAttribute("ticketsData", ticketService.getTicketBookingDataByClient(authentication.getName()));
         return "profile";
     }
 

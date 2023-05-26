@@ -51,7 +51,7 @@
 
             <div class="button-container">
                 <button class="form-button" onclick='window.location.assign("/logout")' type="button">Вийти із системи</button>
-                <input type="submit" value="Зберегти зміни" class="form-button" onclick="return onSubmitClick()">
+                <input type="submit" value="Зберегти зміни" class="form-button" onsubmit="return onSubmitClick()">
             </div>
 
         </form>
@@ -72,7 +72,7 @@
                 </tr>
               </thead>
               <tbody id="schedule-body">
-                <tr th:each="ticketData : ${ticketsData}">
+                <tr th:each="ticketData : ${ticketsData}" th:id='${"row" + ticketData[7]}'>
                     <td th:text="${ticketData[0]}"></td>
                     <!-- <td th:text="${#temporals.format(ticketData[1], 'yyyy-MM-dd HH:mm')}"></td> -->
                     <td th:text="${ticketData[1]}"></td>

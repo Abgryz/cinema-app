@@ -1,7 +1,6 @@
 package com.suitt.controllers.rest;
 
 import com.suitt.models.Response;
-import com.suitt.security.user.UserService;
 import com.suitt.tables.cinemaShow.CinemaShowDto;
 import com.suitt.tables.cinemaShow.CinemaShowService;
 import com.suitt.tables.film.FilmDto;
@@ -14,6 +13,7 @@ import com.suitt.tables.ticketSales.TicketSalesDto;
 import com.suitt.tables.ticketSales.TicketSalesService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
@@ -32,11 +32,6 @@ public class AdminRestController {
     private final HallService hallService;
     private final CinemaShowService cinemaShowService;
 
-    @GetMapping("/films")
-    public List<GenreDto> films(){
-        return genreService.getAll();
-    }
-
     @PostMapping("/films")
     @Transactional
     public Response postFilm(@RequestParam("name") String name,
@@ -46,7 +41,8 @@ public class AdminRestController {
                              @RequestParam("image") String image,
                              @RequestParam("rentalDate") LocalDate rentalDate,
                              @RequestParam("description") String description,
-                             @RequestParam("genres") List<String> genres){
+                             @RequestParam("genres") List<String> genres,
+                             Authentication authentication){
         FilmDto filmDto = FilmDto.builder()
                 .filmName(name)
                 .filmDuration(Time.valueOf(duration))
@@ -56,7 +52,7 @@ public class AdminRestController {
                 .rentalDate(rentalDate)
                 .description(description)
                 .filmGenres(genres)
-                .employee(UserService.authentication().getName())
+                .employee(authentication.getName())
                 .filmGenres(genres)
                 .cinemaShows(List.of())
                 .build();
@@ -64,12 +60,6 @@ public class AdminRestController {
         filmService.createWithGenres(filmDto);
         return Response.ok(null);
     }
-
-    @GetMapping("/shows")
-    public List<HallDto> cinemaShows(){
-        return hallService.getAll();
-    }
-
 
     @PostMapping("/shows")
     @Transactional
@@ -91,10 +81,11 @@ public class AdminRestController {
     @PostMapping("/ticket-sales")
     @Transactional
     public Response createOrUpdateTicketSales(@RequestParam("ticketId") Long ticketId,
-                                              @RequestParam("email") String email){
+                                              @RequestParam("email") String email,
+                                              Authentication authentication){
 
         TicketSalesDto ticketSalesDto = TicketSalesDto.builder()
-                .employee(UserService.authentication().getName())
+                .employee(authentication.getName())
                 .client(email)
                 .ticket(ticketId)
                 .isBooking(false)
@@ -109,16 +100,77 @@ public class AdminRestController {
         }
     }
 
-    @DeleteMapping("/cancel-booking/{ticketId}")
+    @DeleteMapping("/ticket-sales/{ticketId}")
     @Transactional
     public Response cancelBooking(@PathVariable Long ticketId){
         TicketSalesDto ticketSalesDto = ticketSalesService.getTicketSales(ticketId);
-
-        if(ticketSalesDto.isBooking()){
+        CinemaShowDto cinemaShowDto = cinemaShowService.getByTicket(ticketId);
+        if(ticketSalesDto.isBooking() || cinemaShowDto.dateAndTime().minusMinutes(30).isAfter(LocalDateTime.now())){
             ticketSalesService.delete(ticketId);
             return Response.ok(null);
         } else {
             return Response.fail();
         }
+    }
+
+    @PostMapping("/films/{id}")
+    @Transactional
+    public Response updateFilm(@PathVariable Long id,
+                               @RequestParam("name") String name,
+                               @RequestParam("duration") LocalTime duration,
+                               @RequestParam("filmDirector") String filmDirector,
+                               @RequestParam("cast") String cast,
+                               @RequestParam("image") String image,
+                               @RequestParam("rentalDate") LocalDate rentalDate,
+                               @RequestParam("description") String description,
+                               @RequestParam("genres") List<String> genres,
+                               Authentication authentication){
+        FilmDto filmDto = FilmDto.builder()
+                .filmName(name)
+                .filmDuration(Time.valueOf(duration))
+                .filmCast(cast)
+                .filmGenres(genres)
+                .filmDirectorFullName(filmDirector)
+                .image(image)
+                .id(id)
+                .description(description)
+                .employee(authentication.getName())
+                .rentalDate(rentalDate)
+                .build();
+        filmService.updateWithGenres(filmDto);
+        return Response.ok(null);
+    }
+
+    @DeleteMapping("/films/{id}")
+    @Transactional
+    public Response deleteFilm(@PathVariable Long id){
+        filmService.deleteWithGenres(id);
+        return Response.ok(null);
+    }
+
+    @DeleteMapping("/shows/{id}")
+    @Transactional
+    public Response deleteCinemaShow(@PathVariable Long id){
+        cinemaShowService.deleteWithTickets(id);
+        return Response.ok(null);
+    }
+
+    @PostMapping("/shows/{id}")
+    @Transactional
+    public Response updateCinemaShow(@PathVariable Long id,
+                                     @RequestParam("filmId") Long filmId,
+                                     @RequestParam("time") LocalTime time,
+                                     @RequestParam("date") LocalDate date,
+                                     @RequestParam("price") double price,
+                                     @RequestParam("hallId") Long hallId){
+        CinemaShowDto cinemaShowDto = CinemaShowDto.builder()
+                .dateAndTime(LocalDateTime.of(date, time))
+                .hallId(hallId)
+                .filmId(filmId)
+                .tickets(List.of())
+                .id(id)
+                .build();
+        cinemaShowService.updateCinemaShowWithTickets(cinemaShowDto, price);
+        return Response.ok(null);
     }
 }

@@ -18,7 +18,7 @@ public class GenreService {
     }
 
     public List<GenreDto> getAll(){
-        return repository.findAll().stream()
+        return repository.findAllByOrderByName().stream()
                 .map(GenreService::mapGenre)
                 .collect(Collectors.toList());
     }

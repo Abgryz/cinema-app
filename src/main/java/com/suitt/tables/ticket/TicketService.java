@@ -61,6 +61,10 @@ public class TicketService {
         ).map(TicketService::mapTicket).orElse(null);
     }
 
+    public void deleteByCinemaShow(Long cinemaShowId){
+        ticketRepository.deleteByCinemaShow(cinemaShowId);
+    }
+
     public static TicketDto mapTicket(Ticket ticket){
         return TicketDto.builder()
                 .price(ticket.getPrice())

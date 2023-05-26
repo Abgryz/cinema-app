@@ -21,7 +21,6 @@ import java.util.List;
 @Builder
 public class Film {
     @Id
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id")
     private Long id;
@@ -49,10 +48,6 @@ public class Film {
 
     @OneToMany(mappedBy = "film", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CinemaShow> cinemaShows;
-
-//    @OneToOne
-//    @JoinColumn(name = "film_id")
-//    private Poster poster;
 }
 
 

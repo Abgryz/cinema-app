@@ -1,15 +1,15 @@
 package com.suitt.models;
 
 public record Response(
-        ResponseStatus responseStatus,
+        boolean responseStatus,
         String message,
         Object data) {
 
     public static Response ok(Object data) {
-        return new Response(ResponseStatus.OK, null, data);
+        return new Response(true, null, data);
     }
 
     public static Response fail() {
-        return new Response(ResponseStatus.FAIL, null, null);
+        return new Response(false, null, null);
     }
 }

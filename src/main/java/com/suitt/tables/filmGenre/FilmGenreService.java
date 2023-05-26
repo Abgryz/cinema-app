@@ -39,13 +39,16 @@ public class FilmGenreService {
                         )
                 )
         ));
-
     }
 
     public List<FilmGenreDto> getAll(){
         return filmGenreRepository.findAll().stream()
                 .map(FilmGenreService::mapFilmGenre)
                 .collect(Collectors.toList());
+    }
+
+    public void deleteByFilmId(Long id){
+        filmGenreRepository.deleteByFilmId(id);
     }
 
     private static FilmGenreDto mapFilmGenre(FilmGenre filmGenre){

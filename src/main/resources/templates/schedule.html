@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="/css/schedule.css">
 
-    <script th:inline="javascript" src="/scripts/schedule.js"></script>
+    <!-- <script th:inline="javascript" src="/scripts/schedule.js"></script> -->
   </head>
 
   <body>
@@ -23,11 +23,24 @@
                 <th class="h">Хронометраж</th>
                 <th class="h">Номер зали</th>
                 <th class="h">Тип зали</th>
-                <th class="h"></th>
+                <th class="h" colspan="2"></th>
               </tr>
             </thead>
             <tbody id="schedule-body">
+                <tr th:each="elem : ${data}">
+                  <td th:text="${elem[0]}"></td>
+                  <td th:text="${elem[1]}"></td>
+                  <td th:text="${elem[2]}"></td>
+                  <td th:text="${elem[3]}"></td>
+                  <td th:text="${elem[4]}"></td>
+                  <td>
+                    <a class="ticket-button" th:href='${"/schedule/" + elem[5]}'>Бронювати квиток</a>
+                  </td>
+                  <td th:if="${isManager}">
+                    <a class="ticket-button" th:href='${"/admins/shows/" + elem[5]}'>Редагувати сеанс</a>
+                  </td>
 
+                </tr>
             </tbody>
         </table>
     </main>

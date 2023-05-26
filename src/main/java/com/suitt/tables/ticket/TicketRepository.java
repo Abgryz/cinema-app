@@ -4,6 +4,7 @@ import com.suitt.tables.cinemaShow.CinemaShow;
 import com.suitt.tables.seat.Seat;
 import com.suitt.tables.seat.SeatService;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,10 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findByCinemaShow(@Param("cinemaShowId") Long cinemaShowId);
 
     Optional<Ticket> findByCinemaShowAndSeat(CinemaShow cinemaShow, Seat seat);
+
+    @Modifying
+    @Query(value = "delete from ticket where cinema_show_id = :cinemaShowId", nativeQuery = true)
+    void deleteByCinemaShow(@Param("cinemaShowId") Long cinemaShowId);
 
     @Query(value = """
             select
