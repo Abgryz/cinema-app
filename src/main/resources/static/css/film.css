@@ -1,0 +1,31 @@
+.movie-info, .film-schedule{
+    margin-bottom: 10px;
+}
+
+.movie-info h1{
+    text-align: center;
+}
+
+.movie-flex{
+    margin-top: 10px;
+    display: flex;
+}
+
+.movie-description{
+    margin-top: 20px;
+}
+
+.movie-poster img{
+    margin-right: 20px;
+    border-radius: 20px;
+}
+
+.movie-details div{
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.film-schedule{
+    margin-top: 10px;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <title>Додання сеансу</title>
+    <link rel="stylesheet" href="/css/index.css">
+
+    <link rel="stylesheet" href="/css/admins.css">
+    <style>
+        .component{
+            flex-basis: calc(100% / 6);
+        }
+        select.textbox{
+            min-height: 0;
+        }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header th:replace="~{fragments/header :: header}"></header>
+      <main class="box">
+
+        <form class="adding-form box" method="post" action="/api/admins/shows">
+          <div class="component box">
+            <label for="filmId" class="h">Id фільму: </label>
+            <input type="text" id="filmId" name="filmId" class="textbox" required>
+          </div>
+          <div class="component box">
+            <label for="time" class="h">Час: </label>
+            <input type="time" id="time" name="time" class="textbox" required>
+          </div>
+          <div class="component box">
+            <label for="date" class="h">Дата: </label>
+            <input type="date" id="date" name="date" min="{{ currentDate }}" class="textbox" required>
+          </div>
+          <div class="component box">
+            <label for="price" class="h">Початкова ціна квитків: </label>
+            <input type="price" id="price" name="price" class="textbox" required>
+          </div>
+          <div class="component box">
+            <label for="hallId" class="h">Зала: </label>
+            <select id="hall" name="hallId" class="textbox" required>
+              
+            </select>
+          </div>
+          <div class="button-container">
+            <div></div>
+            <input type="submit" value="Зберегти" class="form-button" onclick="return onSubmitClick()">
+          </div>
+        </form>
+        
+
+      </main>
+    </div>
+    <script src="/scripts/hall-loader.js"></script>
+    <script>
+        const rentalDateInput = document.getElementById("date");
+        const currentDate = new Date().toISOString().split("T")[0];
+        rentalDateInput.setAttribute("min", currentDate);
+    </script>
+    <script src="/scripts/confirm-form.js"></script>
+  </body>
+</html>    

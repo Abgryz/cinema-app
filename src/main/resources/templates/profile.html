@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <title>Профіль</title>
+    <link rel="stylesheet" href="/css/index.css">
+
+    <link rel="stylesheet" href="/css/admins.css">
+    <link rel="stylesheet" href="/css/schedule.css">
+    <style>
+        .component{
+            flex-basis: calc(100% / 4);
+        }
+        .textbox[type="text"]{
+            min-width: 300px;
+        }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header th:replace="~{fragments/header :: header}"></header>
+      <main class="box">
+
+        <section th:if="${param.manager}" class="component">
+          <div>
+            <button class="form-button" onclick='window.location.assign("/admins/films")'>Додати фільм</button>
+            <button class="form-button" onclick='window.location.assign("/admins/shows")'>Додати сеанс</button>
+          </div>
+        </section>
+        <section th:if="${param.cashier}" class="component">
+          <div>
+            <button class="form-button" onclick='window.location.assign("/admins/ticket-sales")'>Продаж квитків</button>
+          </div>
+        </section>
+
+        <form class="adding-form box" method="post" action="/api/profile">
+
+            <div class="component box">
+                <label for="fullName" class="h">Ваше ім'я: </label>
+                <input type="text" id="fullName" name="fullName" class="textbox" th:value="${user.fullName}">
+            </div>
+            <div class="component box">
+                <label for="birthDate" class="h">Дата нарождення: </label>
+                <input type="date" id="birthDate" name="birthDate" max="{{ currentDate }}" class="textbox" th:value="${user.birthDate}">
+            </div>
+            <div class="component box">
+                <label for="address" class="h">Адреса: </label>
+                <input type="text" id="address" name="address" class="textbox" th:value="${user.address}">
+            </div>
+
+            <div class="button-container">
+                <button class="form-button" onclick='window.location.assign("/logout")' type="button">Вийти із системи</button>
+                <input type="submit" value="Зберегти зміни" class="form-button" onsubmit="return onSubmitClick()">
+            </div>
+
+        </form>
+        
+        <section class="film-schedule box">
+            <h2 class="h">Заброньовані квитки:</h2>
+            <table id="schedule-table">
+              <thead>
+                <tr>
+                  <th class="h">Назва фільму</th>
+                  <th class="h">Дата та час</th>
+                  <th class="h">Тип зали</th>
+                  <th class="h">Номер зали</th>
+                  <th class="h">Ряд</th>
+                  <th class="h">Номер місця</th>
+                  <th class="h">Ціна</th>
+                  <th class="h"></th>
+                </tr>
+              </thead>
+              <tbody id="schedule-body">
+                <tr th:each="ticketData : ${ticketsData}" th:id='${"row" + ticketData[7]}'>
+                    <td th:text="${ticketData[0]}"></td>
+                    <!-- <td th:text="${#temporals.format(ticketData[1], 'yyyy-MM-dd HH:mm')}"></td> -->
+                    <td th:text="${ticketData[1]}"></td>
+                    <td th:text="${ticketData[2]}"></td>
+                    <td th:text="${ticketData[3]}"></td>
+                    <td th:text="${ticketData[4]}"></td>
+                    <td th:text="${ticketData[5]}"></td>
+                    <td th:text="${ticketData[6]}"></td>
+
+                    <!-- <td th:text="${#numbers.formatDecimal(ticketData[6], 0, 'COMMON')}"></td> -->
+                    <td>
+                        <div></div>
+                        <button class="ticket-button" onclick="onCancelButtonClick(this.getAttribute('ticketId'))" th:attr="ticketId=${ticketData[7]}">Скасувати</button>
+                    </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+      </main>
+    </div>
+
+    <script>
+        const rentalDateInput = document.getElementById("birthDate");
+        const currentDate = new Date().toISOString().split("T")[0];
+        rentalDateInput.setAttribute("max", currentDate);
+    </script>
+    <script src="/scripts/profile.js"></script>
+    <script src="/scripts/confirm-form.js"></script>
+  </body>
+</html>    

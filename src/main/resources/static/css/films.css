@@ -1,0 +1,45 @@
+.film-card{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.film-card a{
+    max-width: 225px;
+    text-align: center;
+    border-radius: 15px;
+    padding: 0;
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    text-decoration: none;
+    color: #000;
+    transition: transform 0.2s ease-in-out;
+}
+
+.film-card a:hover{
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: scale(1.1);
+}
+
+.film-card a img{
+    border-radius: 15px;
+}
+
+.film-card a div{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.film-card h3{
+    display: flex;
+    min-height: 40px;
+    align-items: center;
+}

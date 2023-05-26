@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <title>Кінотеатр</title>
+    <link rel="stylesheet" href="/css/index.css">
+
+    <link rel="stylesheet" href="/css/home.css">
+  </head>
+
+  <body>
+    <div class="container">
+      <header th:replace="~{fragments/header :: header}"></header>
+      <main class="box">
+        <a class="banner" href="/films">
+          <h2>Дивіться найкращі фільми у нашому кінотеатрі</h2>
+        </a>
+
+        <section class="film-card box">
+          <h2 class="h">Наші новинки:</h2>
+          <div>
+            <th:block th:each="film : ${newFilms}">
+              <a th:href='${"/films/" + film.id}' class=" box">
+                <div>
+                  <h3 th:text="${film.filmName()}" class="h"></h3>
+                </div>
+                <img th:src="${film.image()}" height="300", width="225">
+              </a>
+            </th:block>
+          </div>
+        </section>
+        <section class="schedule box">
+          <h2 class="h">Найближчі кіносеанси:</h2>
+          <ul>
+            <th:block th:each="entry : ${nearestCinemaShowsMap}">
+              <li>
+                <b th:text="${#temporals.format(entry.key.dateAndTime, 'yyyy-MM-dd HH:mm')}"></b> : <span th:text="${entry.value}"></span>
+              </li>
+            </th:block>
+          </ul>
+        </section>
+
+      </main>
+    </div>
+  </body>
+</html>    

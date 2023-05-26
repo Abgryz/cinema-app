@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <title>Додання фільму</title>
+    <link rel="stylesheet" href="/css/index.css">
+
+    <link rel="stylesheet" href="/css/admins.css">
+    <style>
+        .textbox[type="text"]{
+          min-width: 100%;
+        }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header th:replace="~{fragments/header :: header}"></header>
+      <main class="box">
+
+        <form class="adding-form box" method="post" action="/api/admins/films">
+          <div class="component box">
+            <label for="name" class="h">Назва: </label>
+            <input type="text" id="name" name="name" class="textbox" required>
+          </div>
+          <div class="component box">
+            <label for="duration" class="h">Хронометраж: </label>
+            <input type="time" id="duration" name="duration" class="textbox" required>
+          </div>
+          <div class="component box">
+            <label for="filmDirector" class="h">Режисер: </label>
+            <input type="text" id="filmDirector" name="filmDirector" class="textbox" required>
+          </div>
+          <div class="component box">
+            <label for="cast" class="h">Акторський склад: </label>
+            <input type="text" id="cast" name="cast" class="textbox" required>
+          </div>
+          <div class="component box">
+            <label for="image" class="h">Посилання на постер: </label>
+            <input type="text" id="image" name="image" class="textbox" required>
+          </div>
+          <div class="component box">
+            <label for="rentalDate" class="h">Дата виходу в прокат: </label>
+            <input type="date" id="rentalDate" name="rentalDate" max="{{ currentDate }}" class="textbox" required>
+          </div>
+          <div class="component box">
+            <label for="description" class="h">Опис: </label>
+            <textarea id="description" name="description" class="textbox" required></textarea>
+          </div>
+          <div class="component box">
+            <label for="genres" class="h">Жанри: </label>
+            <select id="genres" name="genres" multiple class="textbox" required>
+              
+            </select>
+          </div>
+          <div class="button-container">
+            <div></div>
+            <input type="submit" value="Зберегти" class="form-button" onclick="return onSubmitClick()">
+          </div>
+        </form>
+        
+
+      </main>
+    </div>
+    <script src="/scripts/genre-loader.js"></script>
+    <script>
+      const rentalDateInput = document.getElementById("rentalDate");
+      const currentDate = new Date().toISOString().split("T")[0];
+      rentalDateInput.setAttribute("max", currentDate);
+    </script>
+    <script src="/scripts/confirm-form.js"></script>
+  </body>
+</html>    

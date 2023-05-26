@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Реєстрація</title>
+        <link rel="stylesheet" href="/css/index.css">
+        <link rel="stylesheet" href="/css/login.css">
+    </head>
+    <body>
+        <main class="box">
+            <section class="container box">
+                
+                <div th:if="${param.error}">
+                    Invalid username and password.
+                </div>
+                <div th:if="${param.logout}">
+                    You have been logged out.
+                </div>
+
+                <form action="/api/register" method="post" class="login-form box">
+                    <div><label class="h">User Name:</label><input type="email" name="username" class="textbox" required/></div>
+                    <div><label class="h">Password:</label><input type="password" name="password" class="textbox" required/></div>
+                    <div><label class="h">Repeat password:</label><input type="password" name="repeat-password" class="textbox" required/></div>
+                    <div class="buttons">
+                        <input type="button" value="Log In" class="form-button" onclick="redirectToLogin()"/>
+                        <input type="submit" value="Register" class="form-button" onsubmit="checkPasswords()"/>
+                    </div>
+                </form>
+            </section>
+        </main>
+        <script src="/scripts/register.js"></script>
+    </body>
+</html>

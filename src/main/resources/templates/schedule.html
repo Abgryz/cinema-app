@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <title>Кінотеатр</title>
+    <link rel="stylesheet" href="/css/index.css">
+
+    <link rel="stylesheet" href="/css/schedule.css">
+
+    <!-- <script th:inline="javascript" src="/scripts/schedule.js"></script> -->
+  </head>
+
+  <body>
+    <div class="container">
+    <header th:replace="~{fragments/header :: header}"></header>
+    <main class="box">
+        
+        <table id="schedule-table">
+            <thead>
+              <tr>
+                <th class="h">Назва фільму</th>
+                <th class="h">Дата та час</th>
+                <th class="h">Хронометраж</th>
+                <th class="h">Номер зали</th>
+                <th class="h">Тип зали</th>
+                <th class="h" colspan="2"></th>
+              </tr>
+            </thead>
+            <tbody id="schedule-body">
+                <tr th:each="elem : ${data}">
+                  <td th:text="${elem[0]}"></td>
+                  <td th:text="${elem[1]}"></td>
+                  <td th:text="${elem[2]}"></td>
+                  <td th:text="${elem[3]}"></td>
+                  <td th:text="${elem[4]}"></td>
+                  <td>
+                    <a class="ticket-button" th:href='${"/schedule/" + elem[5]}'>Бронювати квиток</a>
+                  </td>
+                  <td th:if="${isManager}">
+                    <a class="ticket-button" th:href='${"/admins/shows/" + elem[5]}'>Редагувати сеанс</a>
+                  </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    </div>
+  </body>
+</html>    

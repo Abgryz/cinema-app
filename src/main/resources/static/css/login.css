@@ -1,0 +1,46 @@
+main{
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Необходимо для выравнивания по вертикали */
+}
+.container {
+    width: 500px;
+    margin: 50px auto;
+    background: rgb(94,94,94);
+    background: linear-gradient(135deg, rgba(94,94,94,1) 0%, rgba(14,27,73,1) 100%);
+    padding: 30px;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+}
+.login-form div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.textbox{
+    padding: 5px 10px;
+    border-radius: 50px;
+    min-width: 250px;
+    background-color: rgba(255, 255, 255, 0.1);
+    /* font-family: 'Montserrat', sans-serif; */
+    font-size: 18px;
+}
+.login-form label{
+    font-size: 18px;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.error{
+    margin-bottom: 10px;
+    text-align: center;
+}
