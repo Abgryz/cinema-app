@@ -148,6 +148,7 @@ public class AdminRestController {
         return Response.ok(null);
     }
 
+
     @DeleteMapping("/shows/{id}")
     @Transactional
     public Response deleteCinemaShow(@PathVariable Long id){

@@ -29,15 +29,6 @@ public class GetRestController {
     private final TicketService ticketService;
     private final GenreService genreService;
 
-//    @GetMapping("/schedule")
-//    public Map<String, List<?>> getSchedule(){
-//        Map<String, List<?>> result = new HashMap<>();
-//        result.put("films", filmService.getAll());
-//        result.put("halls", hallService.getAll());
-//        result.put("cinemaShows", cinemaShowService.getNearest(1000));
-//        return result;
-//    }
-
     @GetMapping("/schedule/films/{id}")
     public Map<String, Object> getFilmSchedule(@PathVariable Long id){
         Map<String, Object> result = new HashMap<>();
@@ -51,11 +42,6 @@ public class GetRestController {
     @GetMapping("/films/{id}")
     public FilmDto getFilm(@PathVariable Long id){
         return filmService.getFilm(id);
-    }
-
-    @GetMapping("/schedule/{id}")
-    public List<?> tickets(@PathVariable Long id){
-        return ticketSalesService.ticketsToMap(ticketService.getByCinemaShow(id));
     }
 
     @GetMapping("/shows/{id}")

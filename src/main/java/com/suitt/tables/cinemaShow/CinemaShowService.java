@@ -29,7 +29,7 @@ public class CinemaShowService {
 
     public void createCinemaShowWithTickets(CinemaShowDto cinemaShowDto, double price){
         CinemaShow cinemaShow = cinemaShowRepository.saveAndFlush(mapCinemaShowDto(cinemaShowDto));
-        ticketService.createAllForCinemaShow(cinemaShow, price);
+        ticketService.createAllForCinemaShow(cinemaShow.getId(), price);
     }
 
     public List<CinemaShowDto> getAll(){
@@ -76,7 +76,7 @@ public class CinemaShowService {
         cinemaShow.setId(cinemaShowDto.id());
         ticketRepository.deleteByCinemaShow(cinemaShowDto.id());
         cinemaShowRepository.update(cinemaShow);
-        ticketService.createAllForCinemaShow(cinemaShow, price);
+        ticketService.createAllForCinemaShow(cinemaShow.getId(), price);
     }
 
     private static CinemaShowDto mapCinemaShow(CinemaShow cinemaShow){

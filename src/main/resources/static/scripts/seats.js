@@ -1,22 +1,21 @@
-let url = window.location.pathname;
-let id = url.substring(url.lastIndexOf('/') + 1);
+const url = window.location.pathname;
+const id = url.substring(url.lastIndexOf('/') + 1);
 fetch("/api/schedule/" + id)
     .then(response => response.json())
     .then(data => {
         console.log(data)
         const tbody = document.querySelector(".seats-tbody");
-        currentRow = 0;
+        let currentRow = 0;
         data.forEach(seatData => {
-            if (currentRow == seatData.seat.row) {
+            if (currentRow === seatData.seat.row) {
                 const lastRow = document.querySelector(".seats-tbody tr:last-child")
                 tableCreater(lastRow, seatData)
-          
             } else {
                 currentRow = seatData.seat.row
                 const row = document.createElement('tr')
                 row.classList.add("table-row")
 
-                rowCounter = document.createElement("td")
+                const rowCounter = document.createElement("td")
                 rowCounter.textContent = "Ряд " + currentRow
 
                 row.appendChild(rowCounter)
@@ -37,10 +36,6 @@ fetch("/api/schedule/" + id)
             });
         })
     })
-    // .then(() => {
-    //     const form = document.querySelector("#seat-form")
-    //     form.action = form.action + "/" + id
-    // })
 
 function tableCreater(row, seatData){
     const rowCell = document.createElement('td')
@@ -53,7 +48,7 @@ function buttonCreater(seatData){
     const button = document.createElement('button')
     button.setAttribute("id", seatData.seat.id)
     button.innerHTML = seatData.seat.seatNumber
-    if(seatData.isBusy == true){
+    if(seatData.isBusy === true){
         button.disabled = true
         button.classList.add("busy")
     } else{
@@ -78,23 +73,4 @@ function onSeatButtonClick(button){
           })
         .catch(error => {console.log(error)});
     }
-
-
-    // const form = document.getElementById("seat-form")
-    // form.classList.remove("disabled")
-    // const div = document.getElementById("seat-form-div")
-    // div.classList.remove("disabled")
-
-    // const label = document.getElementById("form-label")
-    // label.textContent = "Ви дійсно бажаєте забронювати квиток на обране вами місце?"
-
-    // const hidden = document.getElementById("seatId")
-    // hidden.value = button.id
-
-    // const cancelButton = document.getElementById("cancel-button")
-    // cancelButton.addEventListener('click', () => {
-    //     form.classList.add("disabled")
-    //     div.classList.add("disabled")
-    //     button.classList.remove("active")
-    // })
 }

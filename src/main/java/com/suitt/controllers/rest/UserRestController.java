@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -76,6 +77,11 @@ public class UserRestController {
             System.out.println("Ticket booking deleted " + ticketId);
             return Response.ok(null);
         }
+    }
+
+    @GetMapping("/schedule/{id}")
+    public List<?> tickets(@PathVariable Long id){
+        return ticketSalesService.ticketsToMap(ticketService.getByCinemaShow(id));
     }
 
     @PostMapping("/register")

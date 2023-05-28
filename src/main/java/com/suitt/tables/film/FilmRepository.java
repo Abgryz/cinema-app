@@ -11,8 +11,8 @@ import java.util.Optional;
 
 @Repository
 public interface FilmRepository extends JpaRepository<Film, Long> {
-    @Query(value = "select * from search_films(:name)", nativeQuery = true)
-    List<Film> searchFilms(@Param("name") String name);
+    @Query(value = "select * from search_films(:query)", nativeQuery = true)
+    List<Film> searchFilms(@Param("query") String query);
 
     @Query(value = "select * from film where image is not null order by rental_date desc limit :limit", nativeQuery = true)
     List<Film> latestFilms(@Param("limit") int limit);

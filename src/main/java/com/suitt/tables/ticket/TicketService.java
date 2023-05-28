@@ -41,17 +41,18 @@ public class TicketService {
                 .collect(Collectors.toList());
     }
 
-    public void createAllForCinemaShow(CinemaShow cinemaShow, double price){
-        hallRepository.findById(cinemaShow.getHall().getId()).orElseThrow()
-                .getSeats().forEach(
-                        seat -> ticketRepository.save(
-                                Ticket.builder()
-                                        .seat(seat)
-                                        .cinemaShow(cinemaShow)
-                                        .price(price)
-                                        .build()
-                        )
-                );
+    public void createAllForCinemaShow(Long cinemaShowId, double price){
+//        hallRepository.findById(cinemaShow.getHall().getId()).orElseThrow()
+//                .getSeats().forEach(
+//                        seat -> ticketRepository.save(
+//                                Ticket.builder()
+//                                        .seat(seat)
+//                                        .cinemaShow(cinemaShow)
+//                                        .price(price)
+//                                        .build()
+//                        )
+//                );
+        ticketRepository.createAllForCinemaShow(cinemaShowId, price);
     }
 
     public TicketDto findByCinemaShowAndSeat(Long cinemaShowId, Long seatId){
