@@ -5,7 +5,6 @@ import com.suitt.security.user.details.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -69,19 +68,14 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
+//                        .requestMatchers("/**").permitAll()
                         .requestMatchers(STATIC_RESOURCES).permitAll()
                         .requestMatchers(HTML_RESOURCES).permitAll()
                         .requestMatchers(REST_RESOURCES).permitAll()
-//                        .requestMatchers("/**").permitAll()
                         .requestMatchers(USER_RESOURCES).hasAnyAuthority(USER, MANAGER, CASHIER)
                         .requestMatchers(MANAGER_RESOURCES).hasAuthority(MANAGER)
                         .requestMatchers(CASHIER_RESOURCES).hasAuthority(CASHIER)
-//                      .anyRequest().permitAll()
-//                                .requestMatchers(HttpMethod.DELETE).permitAll()
-//                                .requestMatchers(HttpMethod.POST).permitAll()
-//                                .requestMatchers(HttpMethod.PUT).permitAll()
-//                                .requestMatchers(HttpMethod.PATCH).permitAll()
-
+                        .anyRequest().authenticated()
                 )
                 .formLogin()
                     .loginPage("/login")

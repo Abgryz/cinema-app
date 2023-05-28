@@ -1,6 +1,5 @@
 package com.suitt.controllers.rest;
 
-import com.suitt.security.user.UserService;
 import com.suitt.tables.cinemaShow.CinemaShowDto;
 import com.suitt.tables.cinemaShow.CinemaShowService;
 import com.suitt.tables.film.FilmDto;
@@ -9,8 +8,6 @@ import com.suitt.tables.genre.GenreDto;
 import com.suitt.tables.genre.GenreService;
 import com.suitt.tables.hall.HallDto;
 import com.suitt.tables.hall.HallService;
-import com.suitt.tables.ticket.TicketService;
-import com.suitt.tables.ticketSales.TicketSalesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,18 +22,7 @@ public class GetRestController {
     private final FilmService filmService;
     private final HallService hallService;
     private final CinemaShowService cinemaShowService;
-    private final TicketSalesService ticketSalesService;
-    private final TicketService ticketService;
     private final GenreService genreService;
-
-//    @GetMapping("/schedule")
-//    public Map<String, List<?>> getSchedule(){
-//        Map<String, List<?>> result = new HashMap<>();
-//        result.put("films", filmService.getAll());
-//        result.put("halls", hallService.getAll());
-//        result.put("cinemaShows", cinemaShowService.getNearest(1000));
-//        return result;
-//    }
 
     @GetMapping("/schedule/films/{id}")
     public Map<String, Object> getFilmSchedule(@PathVariable Long id){
@@ -51,11 +37,6 @@ public class GetRestController {
     @GetMapping("/films/{id}")
     public FilmDto getFilm(@PathVariable Long id){
         return filmService.getFilm(id);
-    }
-
-    @GetMapping("/schedule/{id}")
-    public List<?> tickets(@PathVariable Long id){
-        return ticketSalesService.ticketsToMap(ticketService.getByCinemaShow(id));
     }
 
     @GetMapping("/shows/{id}")

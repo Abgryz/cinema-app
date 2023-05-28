@@ -1,3 +1,24 @@
+const formId = "profile-form"
+const form = document.getElementById(formId)
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    if (confirm("Ви справді бажаєте зберегти зміни?")){
+        submitHandlerParam(formId, "POST", form.action)
+            .then(response => {
+                console.log(response)
+                if (response.ok){
+                    alert("Дані збережено!")
+                } else {
+                    alert("Сталася помилка!")
+                }
+            })
+            .catch(err => {
+                console.error(err)
+                alert("Сталася помилка!")
+            })
+    }
+})
+
 function onCancelButtonClick(ticketId){
     if (confirm("Ви справді бажаєте відмінити бронювання квитка на цей сеанс?")) {
         console.log("button", ticketId)
@@ -7,7 +28,6 @@ function onCancelButtonClick(ticketId){
             headers: {
               'Content-Type': 'application/json',
             },
-            // body: JSON.stringify(data),
         })
         .then(response => {
             if(response.ok){
@@ -20,9 +40,4 @@ function onCancelButtonClick(ticketId){
             console.log(error)
         });
     }
-}
-
-
-function onProfileFormSubmit(){
-    
 }

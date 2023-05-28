@@ -2,7 +2,6 @@ package com.suitt.tables.ticket;
 
 import com.suitt.tables.cinemaShow.CinemaShow;
 import com.suitt.tables.seat.Seat;
-import com.suitt.tables.seat.SeatService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -44,4 +43,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
             """,
             nativeQuery = true)
     List<Object> findTicketBookingDataByClient(@Param("email") String email);
+
+    @Modifying
+    @Query(value = "call create_tickets_for_cinema_show(:cinemaShowId, :price);", nativeQuery = true)
+    void createAllForCinemaShow(@Param("cinemaShowId") Long cinemaShowId, @Param("price") double price);
 }
