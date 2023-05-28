@@ -36,7 +36,6 @@ public class UserService {
     }
 
     public void registerClient(String email, String password){
-
         if (clientRepository.existsById(email)){
             throw new IllegalArgumentException("User already exist");
         }

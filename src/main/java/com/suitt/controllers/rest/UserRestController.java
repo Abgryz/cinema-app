@@ -12,12 +12,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Slf4j
@@ -88,15 +85,13 @@ public class UserRestController {
     @Transactional
     public Response register(
             @RequestParam("username") String username,
-            @RequestParam("password") String password,
-            @RequestParam("repeat-password") String repeatPassword){
-        if (password.equals(repeatPassword)) {
-
+            @RequestParam("password") String password) {
+        try {
             userService.registerClient(username, password);
-            log.info("User registered: " + username);
-            return Response.ok(null);
-        } else {
+        } catch (IllegalArgumentException e){
             return Response.fail();
         }
+        log.info("User registered: " + username);
+        return Response.ok(null);
     }
 }

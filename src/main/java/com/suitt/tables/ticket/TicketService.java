@@ -1,10 +1,7 @@
 package com.suitt.tables.ticket;
 
-import com.suitt.tables.cinemaShow.CinemaShow;
 import com.suitt.tables.cinemaShow.CinemaShowRepository;
-import com.suitt.tables.hall.HallRepository;
 import com.suitt.tables.seat.SeatRepository;
-import com.suitt.tables.seat.SeatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +14,6 @@ public class TicketService {
     private final CinemaShowRepository cinemaShowRepository;
     private final SeatRepository seatRepository;
     private final TicketRepository ticketRepository;
-    private final HallRepository hallRepository;
 
     public List<Object> getTicketBookingDataByClient(String email){
         return ticketRepository.findTicketBookingDataByClient(email);
@@ -60,10 +56,6 @@ public class TicketService {
                 cinemaShowRepository.findById(cinemaShowId).orElseThrow(),
                 seatRepository.findById(seatId).orElseThrow()
         ).map(TicketService::mapTicket).orElse(null);
-    }
-
-    public void deleteByCinemaShow(Long cinemaShowId){
-        ticketRepository.deleteByCinemaShow(cinemaShowId);
     }
 
     public static TicketDto mapTicket(Ticket ticket){

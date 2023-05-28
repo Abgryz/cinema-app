@@ -18,7 +18,7 @@
       <header th:replace="~{fragments/header :: header}"></header>
       <main class="box">
 
-        <form class="adding-form box" method="post" th:action='${"/api/admins/films/" + film.id}'>
+        <form class="adding-form box" method="post" th:action='${"/api/admins/films/" + film.id}' id="adding-form">
           <div class="component box">
             <label for="name" class="h">Назва: </label>
             <input type="text" id="name" name="name" class="textbox" th:value="${film.filmName}" required>
@@ -55,7 +55,7 @@
           </div>
           <div class="button-container">
             <button type="button" class="form-button" onclick="return onDeleteFilmButtonClick()">Видалити фільм</button>
-            <input type="submit" value="Зберегти зміни" class="form-button" onclick="return onSubmitClick()">
+            <input type="submit" value="Зберегти зміни" class="form-button">
           </div>
         </form>
         
@@ -68,7 +68,8 @@
       const currentDate = new Date().toISOString().split("T")[0];
       rentalDateInput.setAttribute("max", currentDate);
     </script>
-    <script src="/scripts/confirm-form.js"></script>
+    <script src="/scripts/submit-handler.js"></script>
     <script src="/scripts/delete-film.js"></script>
+    <script src="/scripts/adding-form.js"></script>
   </body>
 </html>    

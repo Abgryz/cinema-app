@@ -1,13 +1,11 @@
 package com.suitt.controllers;
 
-import com.suitt.models.Response;
 import com.suitt.tables.cinemaShow.CinemaShowDto;
 import com.suitt.tables.cinemaShow.CinemaShowService;
 import com.suitt.tables.film.FilmService;
 import com.suitt.tables.ticket.TicketService;
 import com.suitt.tables.ticketSales.TicketSalesService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +26,12 @@ public class AdminController {
 
 
     @GetMapping("/films")
-    public String films(Model model){
+    public String films(){
         return "film-adding";
     }
 
     @GetMapping("/shows")
-    public String cinemaShows(Model model){
+    public String cinemaShows(){
         return "show-adding";
     }
 

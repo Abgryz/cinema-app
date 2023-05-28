@@ -2,7 +2,6 @@ package com.suitt.tables.ticket;
 
 import com.suitt.tables.cinemaShow.CinemaShow;
 import com.suitt.tables.seat.Seat;
-import com.suitt.tables.seat.SeatService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -15,7 +15,7 @@
       <header th:replace="~{fragments/header :: header}"></header>
       <main class="box">
 
-        <form class="adding-form box" method="post" action="/api/admins/ticket-sales">
+        <form class="adding-form box" method="post" action="/api/admins/ticket-sales" id="ticket-sales-form">
           <div class="component box">
               <label for="ticketId" class="h">Номер квитка: </label>
               <input type="text" id="ticketId" name="ticketId" class="textbox" required>
@@ -26,7 +26,7 @@
             </div>
             <div class="button-container">
                 <button type="button" class="form-button" onclick="onDeleteButtonClick()">Видалення продажі квитків</button>
-                <input type="submit" value="Підтвердити купівлю" class="form-button" onclick="return onSubmitClick()">
+                <input type="submit" value="Підтвердити купівлю" class="form-button">
             </div>
         </form>
 
@@ -44,7 +44,7 @@
                   </div>
                     <div class="button-container">
                         <button class="form-button" onclick="onCancelButtonClick(this.getAttribute('ticketId'))" th:attr="ticketId=${ticketSales.ticket}" type="button">Видалити</button>
-                        <input type="submit" value="Підтвердити купівлю" class="form-button" onclick="return onSubmitClick()">
+                        <input type="submit" value="Підтвердити купівлю" class="form-button">
                     </div>
                 </form>
             </th:block>
@@ -54,6 +54,6 @@
       </main>
     </div>
     <script src="/scripts/ticket-sales.js"></script>
-    <script src="/scripts/confirm-form.js"></script>
+    <script src="/scripts/submit-handler.js"></script>
   </body>
 </html>    

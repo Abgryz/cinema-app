@@ -5,10 +5,6 @@ import com.suitt.tables.cinemaShow.CinemaShowDto;
 import com.suitt.tables.cinemaShow.CinemaShowService;
 import com.suitt.tables.film.FilmDto;
 import com.suitt.tables.film.FilmService;
-import com.suitt.tables.genre.GenreDto;
-import com.suitt.tables.genre.GenreService;
-import com.suitt.tables.hall.HallDto;
-import com.suitt.tables.hall.HallService;
 import com.suitt.tables.ticketSales.TicketSalesDto;
 import com.suitt.tables.ticketSales.TicketSalesService;
 import jakarta.transaction.Transactional;
@@ -27,9 +23,7 @@ import java.util.List;
 @RequestMapping("/api/admins")
 public class AdminRestController {
     private final TicketSalesService ticketSalesService;
-    private final GenreService genreService;
     private final FilmService filmService;
-    private final HallService hallService;
     private final CinemaShowService cinemaShowService;
 
     @PostMapping("/films")
