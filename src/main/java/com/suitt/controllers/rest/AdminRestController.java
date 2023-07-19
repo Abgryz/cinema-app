@@ -138,7 +138,7 @@ public class AdminRestController {
     @DeleteMapping("/films/{id}")
     @Transactional
     public Response deleteFilm(@PathVariable Long id){
-        filmService.deleteWithGenres(id);
+        filmService.delete(id);
         return Response.ok(null);
     }
 
@@ -146,7 +146,7 @@ public class AdminRestController {
     @DeleteMapping("/shows/{id}")
     @Transactional
     public Response deleteCinemaShow(@PathVariable Long id){
-        cinemaShowService.deleteWithTickets(id);
+        cinemaShowService.delete(id);
         return Response.ok(null);
     }
 

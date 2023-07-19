@@ -18,18 +18,18 @@ td {
 }
   
 th {
-    background-color: rgba(242, 242, 242, 0.5);
+    background-color: rgba(194, 144, 228, 0.5);
     padding: 8px;
 }
   
 tr{
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(237, 203, 244, 0.801);
 }
 
   
 .ticket-button {
   display: block;
-  background-color: #007aff;
+  background-color: #bf66d7;
   color: #fff;
   padding: 10px 20px;
   border-radius: 5px;
@@ -37,9 +37,9 @@ tr{
   text-decoration: none;
   margin: 10px auto;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .ticket-button:hover {
-  background-color: #0051a8;
+    background-color: #bf66d7;
 }

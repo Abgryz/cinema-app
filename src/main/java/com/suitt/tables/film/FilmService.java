@@ -73,10 +73,8 @@ public class FilmService {
         filmGenreService.createGenresForFilm(filmDto);
     }
 
-    public void deleteWithGenres(Long id){
-        filmGenreService.deleteByFilmId(id);
+    public void delete(Long id){
         filmRepository.deleteById(id);
-        System.out.println(id);
     }
 
 

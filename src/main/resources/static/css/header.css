@@ -16,7 +16,7 @@ nav {
     display: flex;
     align-items: center;
     padding: 12px;
-  
+    transition: all ease 0.3s;
     margin: 4px;
     border-radius: 10px;
     margin-left: 5px;
@@ -30,26 +30,23 @@ nav {
     margin: 4px;
     border-radius: 10px;
     display: inline-block;
-  }
-  .nav-button:hover, .nav-main:hover{
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-  }
-  
-  .nav-button{
+    transition: all ease 0.3s;
     text-decoration: none;
     color: #000000;
     font-size: 20px;
     display: inline-block;
     padding: 16px;
   }
-  
+  .nav-button:hover, .nav-main:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    color: rgb(185, 117, 117);
+  }
+
   .textbox{
     padding: 5px 10px;
     border-radius: 50px;
     min-width: 300px;
     background-color: rgba(255, 255, 255, 0.1);
-  
     /* font-family: 'Montserrat', sans-serif; */
     font-size: 20px;
   }
@@ -78,11 +75,10 @@ nav {
   }
 
 .nav-profile{
+    transition: all ease 0.3s;
     margin: 0 15px;
     display: inline-block;
 }
   .nav-profile:hover{
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
     transform: scale(1.1);
 }

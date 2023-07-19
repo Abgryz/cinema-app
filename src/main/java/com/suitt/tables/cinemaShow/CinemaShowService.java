@@ -62,8 +62,7 @@ public class CinemaShowService {
                 .orElse(null);
     }
 
-    public void deleteWithTickets(Long id){
-        ticketRepository.deleteByCinemaShow(id);
+    public void delete(Long id){
         cinemaShowRepository.deleteById(id);
     }
 
