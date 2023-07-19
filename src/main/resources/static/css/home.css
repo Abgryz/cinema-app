@@ -8,7 +8,7 @@
     border-radius: 5px;
     display: block;
     text-decoration: none;
-    transition: transform 0.3s ease-in-out;
+    transition: all 0.5s ease-in-out;
   }
 
   .banner:hover{
@@ -24,10 +24,6 @@
     margin-top: 50px;
   }
   
-  /* .schedule h2 {
-    font-size: 32px;
-    margin-bottom: 20px;
-  } */
   
   .schedule ul {
     list-style: none;
@@ -47,9 +43,19 @@
 }
 
 .film-card div{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: space-between;
+}
+@media only screen and (max-width:1250px){
+  .film-card div{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media only screen and (max-width:767px){
+  .film-card div{
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .film-card div a{
@@ -65,11 +71,11 @@
 
     text-decoration: none;
     color: #000;
-    transition: transform 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .film-card div a:hover{
-    color: white;
+    color: rgb(185, 117, 117);
     background-color: rgba(255, 255, 255, 0.15);
     transform: scale(1.1);
 }

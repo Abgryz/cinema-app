@@ -3,37 +3,65 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Необходимо для выравнивания по вертикали */
+    height: 100vh; 
 }
 .container {
-    width: 500px;
+    width: 30%;
     margin: 50px auto;
-    background: rgb(94,94,94);
-    background: linear-gradient(135deg, rgba(94,94,94,1) 0%, rgba(14,27,73,1) 100%);
+    background: rgb(231, 210, 210);
     padding: 30px;
 }
-
+.container__login{
+    min-height: 30% !important;
+}
+@media only screen and (max-width:1439px){
+    .container__login{
+        width: 60% !important;
+        min-height: 20% !important;
+    }
+  }
+  @media only screen and (max-width:1250px){
+    .container__login{
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media only screen and (max-width:767px){
+    .container__login{
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 .login-form{
     display: flex;
     flex-direction: column;
 }
 .login-form div{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
     margin-bottom: 10px;
 }
 .textbox{
     padding: 5px 10px;
     border-radius: 50px;
-    min-width: 250px;
+    width: 80%;
     background-color: rgba(255, 255, 255, 0.1);
     /* font-family: 'Montserrat', sans-serif; */
     font-size: 18px;
 }
 .login-form label{
-    font-size: 18px;
+    display: block;
+    width: 100%;
+    font-size: 1.5vw;
 }
+
+@media only screen and (max-width:1439px){
+    .login-form label{
+        font-size: 2vw;
+    }
+  }
+  @media only screen and (max-width:1250px){
+    .login-form label{
+        font-size: 3vw;
+    }
+  }
 
 .buttons{
     display: flex;
