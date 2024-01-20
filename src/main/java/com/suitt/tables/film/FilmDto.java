@@ -6,7 +6,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.util.List;
 
-@Builder
+@Builder(toBuilder = true)
 public record FilmDto(
         Long id,
         String filmName,

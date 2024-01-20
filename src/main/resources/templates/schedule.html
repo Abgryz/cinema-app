@@ -1,37 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="UTF-8">
     <title>Кінотеатр</title>
-    <link rel="stylesheet" href="../static/css/index.css">
     <link rel="stylesheet" href="/css/index.css">
 
-    <link rel="stylesheet" href="../static/css/schedule.css">
     <link rel="stylesheet" href="/css/schedule.css">
 
-    <script th:inline="javascript" src="/scripts/schedule.js"></script>
+    <!-- <script th:inline="javascript" src="/scripts/schedule.js"></script> -->
   </head>
 
   <body>
     <div class="container">
-        <header>
-            <nav>
-                <div class="nav-main">
-                    <img src="/images/icons/cinema.png" height="20" width="20">
-                    <a href="../"><h1>Головна</h1></a>
-                </div>
-                <form action="/search" method="get" class="">
-                    <input type="text" name="query" placeholder="Search..." class="nav-search-input">
-                    <input type="submit" class="nav-search-button" value="">
-                </form>
-                <ul class="">
-                    <li><a href="/schedule" class="h">Розклад</a></li>
-                    <li><a href="/films" class="h">Фільми</a></li>
-                    <li><a href="#" class="h">Про нас</a></li>
-                </ul>
-            </nav>
-          </header>
-      <main>
+    <header th:replace="~{fragments/header :: header}"></header>
+    <main class="box">
         
         <table id="schedule-table">
             <thead>
@@ -41,17 +23,27 @@
                 <th class="h">Хронометраж</th>
                 <th class="h">Номер зали</th>
                 <th class="h">Тип зали</th>
-                <th class="h"></th>
+                <th class="h" colspan="2"></th>
               </tr>
             </thead>
             <tbody id="schedule-body">
+                <tr th:each="elem : ${data}">
+                  <td th:text="${elem[0]}"></td>
+                  <td th:text="${elem[1]}"></td>
+                  <td th:text="${elem[2]}"></td>
+                  <td th:text="${elem[3]}"></td>
+                  <td th:text="${elem[4]}"></td>
+                  <td>
+                    <a class="ticket-button" th:href='${"/schedule/" + elem[5]}'>Бронювати квиток</a>
+                  </td>
+                  <td th:if="${isManager}">
+                    <a class="ticket-button" th:href='${"/admins/shows/" + elem[5]}'>Редагувати сеанс</a>
+                  </td>
 
+                </tr>
             </tbody>
-          </table>
-          
-          
-
-      </main>
+        </table>
+    </main>
     </div>
   </body>
 </html>    

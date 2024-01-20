@@ -21,15 +21,15 @@ import java.util.List;
 @Builder
 public class Film {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id")
     private Long id;
 
     private LocalDate rentalDate;
 
-    private Time filmDuration;
+    private Time duration;
 
-    private String filmDirectorFullName;
+    private String directorFullName;
 
     private String filmCast;
 
@@ -38,7 +38,7 @@ public class Film {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "emp_phone_number")
+    @JoinColumn(name = "emp_email")
     private Employee employee;
 
     private String image;
@@ -48,10 +48,6 @@ public class Film {
 
     @OneToMany(mappedBy = "film", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CinemaShow> cinemaShows;
-
-//    @OneToOne
-//    @JoinColumn(name = "film_id")
-//    private Poster poster;
 }
 
 

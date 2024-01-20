@@ -3,6 +3,7 @@ table {
     width: 100%;
     text-align: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
 }
 
 tbody tr:nth-child(even) {
@@ -17,18 +18,18 @@ td {
 }
   
 th {
-    background-color: rgba(242, 242, 242, 0.5);
+    background-color: rgba(194, 144, 228, 0.5);
     padding: 8px;
 }
   
 tr{
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(237, 203, 244, 0.801);
 }
 
   
-table a {
+.ticket-button {
   display: block;
-  background-color: #007aff;
+  background-color: #bf66d7;
   color: #fff;
   padding: 10px 20px;
   border-radius: 5px;
@@ -36,9 +37,9 @@ table a {
   text-decoration: none;
   margin: 10px auto;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-table a:hover {
-  background-color: #0051a8;
+.ticket-button:hover {
+    background-color: #bf66d7;
 }

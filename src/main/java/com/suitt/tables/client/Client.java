@@ -1,32 +1,24 @@
 package com.suitt.tables.client;
 
 
+import com.suitt.security.user.UserEntity;
 import com.suitt.tables.ticketSales.TicketSales;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "client")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Client {
-    @Id
-    @Column(name = "cl_phone_number")
-    private String phoneNumber;
+@SuperBuilder(toBuilder = true)
+public class Client extends UserEntity {
 
-    @Column(name = "cl_full_name")
-    private String fullName;
-
-    private String address;
-
-    private LocalDate birthDate;
-
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TicketSales> ticketSales;
 }

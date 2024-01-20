@@ -8,8 +8,8 @@ import java.util.List;
 public record HallDto(
         Long id,
         String type,
-        int seatCount,
-        List<String> cinemas,
+//        int seatCount,
+        List<Long> cinemas,
         List<Long> seats
 ) {
 

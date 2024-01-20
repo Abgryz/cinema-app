@@ -1,5 +1,8 @@
 package com.suitt.tables.filmGenre;
 
+import com.suitt.tables.film.FilmDto;
+import com.suitt.tables.film.FilmRepository;
+import com.suitt.tables.genre.GenreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,32 +12,43 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class FilmGenreService {
-    private final FilmGenreRepository repository;
+    private final FilmGenreRepository filmGenreRepository;
+    private final FilmRepository filmRepository;
+    private final GenreRepository genreRepository;
 
     public List<FilmGenreDto> getFilmGenre(Long filmId){
-        return repository.findAll().stream()
+        return filmGenreRepository.findAll().stream()
                 .filter(filmGenre -> filmGenre.getFilmGenrePK().getFilm().getId().equals(filmId))
                 .map(FilmGenreService::mapFilmGenre)
                 .collect(Collectors.toList());
     }
 
     public List<FilmGenreDto> getFilmGenre(String genreName){
-        return repository.findAll().stream()
+        return filmGenreRepository.findAll().stream()
                 .filter(filmGenre -> filmGenre.getFilmGenrePK().getGenre().getName().equals(genreName))
                 .map(FilmGenreService::mapFilmGenre)
                 .collect(Collectors.toList());
     }
 
-    public FilmGenreDto getFilmGenre(FilmGenrePK filmGenrePK){
-        return repository.findById(filmGenrePK)
-                .map(FilmGenreService::mapFilmGenre)
-                .orElse(null);
+    public void createGenresForFilm(FilmDto filmDto){
+        filmDto.filmGenres().forEach(genre -> filmGenreRepository.save(
+                new FilmGenre(
+                        new FilmGenrePK(
+                                filmRepository.findById(filmDto.id()).orElseThrow(),
+                                genreRepository.findById(genre).orElseThrow()
+                        )
+                )
+        ));
     }
 
     public List<FilmGenreDto> getAll(){
-        return repository.findAll().stream()
+        return filmGenreRepository.findAll().stream()
                 .map(FilmGenreService::mapFilmGenre)
                 .collect(Collectors.toList());
+    }
+
+    public void deleteByFilmId(Long id){
+        filmGenreRepository.deleteByFilmId(id);
     }
 
     private static FilmGenreDto mapFilmGenre(FilmGenre filmGenre){

@@ -17,14 +17,13 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class TicketSales {
     @EmbeddedId
-//    @ManyToOne
-//    @JoinColumn(name = "ticket_id")
     private TicketSalesPK ticketSalesPK;
 
     @ManyToOne
-    @JoinColumn(name = "cl_phone_number")
+    @JoinColumn(name = "cl_email")
     private Client client;
 
     private LocalDate saleDate;
@@ -32,6 +31,6 @@ public class TicketSales {
     private boolean isBooking;
 
     @ManyToOne
-    @JoinColumn(name = "emp_phone_number")
+    @JoinColumn(name = "emp_email")
     private Employee employee;
 }

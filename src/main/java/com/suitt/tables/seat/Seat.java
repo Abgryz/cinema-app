@@ -16,6 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Seat {
     @Id
     @GeneratedValue
@@ -26,7 +27,7 @@ public class Seat {
     @JoinColumn(name = "hall_id")
     private Hall hall;
 
-    private int row;
+    private int seatRow;
 
     @Column(name = "seat_num")
     private int seatNumber;

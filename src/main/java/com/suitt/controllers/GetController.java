@@ -1,26 +1,34 @@
 package com.suitt.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.suitt.security.user.Role;
+import com.suitt.security.user.UserDto;
+import com.suitt.security.user.UserService;
+import com.suitt.tables.cinemaShow.CinemaShowDto;
 import com.suitt.tables.cinemaShow.CinemaShowService;
 import com.suitt.tables.film.FilmDto;
 import com.suitt.tables.film.FilmService;
 import com.suitt.tables.hall.HallService;
-import jakarta.transaction.Transactional;
+import com.suitt.tables.ticket.TicketRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import org.springframework.cglib.core.CollectionUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Controller
 @RequiredArgsConstructor
-public class MainController {
+public class GetController {
     private final FilmService filmService;
     private final CinemaShowService cinemaShowService;
-    private final HallService hallService;
+
     @GetMapping("/")
     public String home(Model model){
         model.addAttribute("newFilms", filmService.latestFilms(5));
@@ -29,21 +37,16 @@ public class MainController {
     }
 
     @GetMapping("/films/{id}")
-    public String film(Model model, @PathVariable Long id){
+    public String film(Model model, @PathVariable Long id, Authentication authentication){
         FilmDto film = filmService.getFilm(id);
         if (film.image() == null){
             throw new RuntimeException();
         }
-
-        model.addAttribute("image", film.image());
-        model.addAttribute("filmName", film.filmName());
+        model.addAttribute("film", film);
         model.addAttribute("filmGenres",  film.filmGenres().toString().substring(1, film.filmGenres().toString().length() - 1));
-        model.addAttribute("filmDirector", film.filmDirectorFullName());
-        model.addAttribute("filmCast", film.filmCast());
-        model.addAttribute("rentalDate", film.rentalDate());
-        model.addAttribute("filmDuration", film.filmDuration());
-        model.addAttribute("description", film.description());
-
+        if (UserService.getRoles(authentication).contains(Role.ROLE_MANAGER.name())){
+            model.addAttribute("isManager", true);
+        }
         return "film";
     }
 
@@ -64,7 +67,21 @@ public class MainController {
     }
 
     @GetMapping("/schedule")
-    public String schedule(Model model){
+    public String schedule(Model model, Authentication authentication){
+        List<Object> data = cinemaShowService.getSchedule();
+        model.addAttribute("data", data);
+        if (UserService.getRoles(authentication).contains(Role.ROLE_MANAGER.name())){
+            model.addAttribute("isManager", true);
+        }
         return "schedule";
+    }
+
+    @GetMapping("/schedule/{id}")
+    public String tickets(Model model, @PathVariable Long id){
+        FilmDto filmDto = filmService.getByCinemaShow(id);
+        model.addAttribute("film", filmDto);
+        model.addAttribute("cinemaShow", cinemaShowService.getNotStarted(id));
+        model.addAttribute("description", filmDto.description());
+        return "seats";
     }
 }

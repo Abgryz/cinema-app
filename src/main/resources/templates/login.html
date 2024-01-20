@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Авторизація</title>
+        <link rel="stylesheet" href="/css/index.css">
+        <link rel="stylesheet" href="/css/login.css">
+    </head>
+    <body>
+        <main class="box">
+            <section class="container box container__login">
+
+                <div th:if="${param.error}" class="error h">
+                    Invalid username and password.
+                </div>
+                <div th:if="${param.logout}" class="error h">
+                    You have been logged out.
+                </div>
+                
+                <form th:action="@{/login}" method="post" class="login-form box">
+                    <div><label class="h">User Name:</label><input type="email" name="username" class="textbox" required/></div>
+                    <div><label class="h">Password:</label><input type="password" name="password" class="textbox" required/></div>
+                    <div class="buttons">
+                        <input type="button" value="Register" class="form-button" onclick="redirectToRegister()"/>
+                        <input type="submit" value="Log In" class="form-button"/>
+                    </div>
+                </form>
+                
+            </section>
+        </main>
+        <script>
+            function redirectToRegister() {
+                window.location.assign("/register");
+            }
+        </script>
+    </body>
+</html>

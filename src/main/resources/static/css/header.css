@@ -1,0 +1,84 @@
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    align-items:center;
+  }
+  
+  .nav-main{
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    transition: all ease 0.3s;
+    margin: 4px;
+    border-radius: 10px;
+    margin-left: 5px;
+    color: black;
+    text-decoration: none;
+  }
+  .nav-main img{
+    margin-right: 10px;
+  }
+  .nav-button{
+    margin: 4px;
+    border-radius: 10px;
+    display: inline-block;
+    transition: all ease 0.3s;
+    text-decoration: none;
+    color: #000000;
+    font-size: 20px;
+    display: inline-block;
+    padding: 16px;
+  }
+  .nav-button:hover, .nav-main:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    color: rgb(185, 117, 117);
+  }
+
+  .textbox{
+    padding: 5px 10px;
+    border-radius: 50px;
+    min-width: 300px;
+    background-color: rgba(255, 255, 255, 0.1);
+    /* font-family: 'Montserrat', sans-serif; */
+    font-size: 20px;
+  }
+  .textbox::placeholder{
+    /* font-family: 'Montserrat', sans-serif; */
+    font-weight: bold;
+    color: black;
+  }
+  .textbox:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  .nav-search-button{
+    padding: 15px;
+    height: 17px;
+    width: 17px;
+    background-image: url('/images/icons/search.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+  }
+  
+  nav form{
+    display: flex;
+    align-items: center;
+  }
+
+.nav-profile{
+    transition: all ease 0.3s;
+    margin: 0 15px;
+    display: inline-block;
+}
+  .nav-profile:hover{
+    transform: scale(1.1);
+}

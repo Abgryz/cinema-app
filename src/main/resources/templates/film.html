@@ -2,59 +2,66 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="UTF-8">
-    <title th:text="${filmName}"></title>
-    <link rel="stylesheet" href="../static/css/index.css">
+    <title th:text="${film.filmName}"></title>
     <link rel="stylesheet" href="/css/index.css">
 
-    <link rel="stylesheet" href="../static/css/film.css">
     <link rel="stylesheet" href="/css/film.css">
-
+    <link rel="stylesheet" href="/css/schedule.css">
   </head>
   <body>
     <div class="container">
-        <header>
-            <nav>
-                <div class="nav-main">
-                    <img src="/images/icons/cinema.png" height="20" width="20">
-                    <a href="../"><h1>Головна</h1></a>
-                </div>
-                <form action="/search" method="get" class="">
-                    <input type="text" name="query" placeholder="Search..." class="nav-search-input">
-                    <input type="submit" class="nav-search-button" value="">
-                </form>
-                <ul class="">
-                    <li><a href="/schedule" class="h">Розклад</a></li>
-                    <li><a href="/films" class="h">Фільми</a></li>
-                    <li><a href="#" class="h">Про нас</a></li>
-                </ul>
-            </nav>
-          </header>
-      <main>
-        <section class="movie">
+    <header th:replace="~{fragments/header :: header}"></header>
+      <main class="box">
+        <section class="movie box">
             <div class="movie-info">
-                <h1 th:text="${filmName}" class="h"></h1>
+                <h1 th:text="${film.filmName}" class="h"></h1>
                 <div class="movie-flex">
                     <div class="movie-poster">
-                        <img th:src="${image}" alt="Назва фільму" height="600", width="450">
+                        <img th:src="${film.image}" alt="Назва фільму" height="600" width="450">
                     </div>
                     <div class="movie-details">
                         <div>
                             <p><b>Жанр: </b><span th:text="${filmGenres}"></span></p>
-                            <p><b>Режисер: </b><span th:text="${filmDirector}"></span></p>
-                            <p><b>У головних ролях: </b><span th:text="${filmCast}"></span></p>
-                            <p><b>Дата виходу: </b><span th:text="${rentalDate}"></span></p>
-                            <p><b>Хронометраж: </b><span th:text="${filmDuration}"></span></p>
+                            <p><b>Режисер: </b><span th:text="${film.filmDirectorFullName}"></span></p>
+                            <p><b>У головних ролях: </b><span th:text="${film.filmCast}"></span></p>
+                            <p><b>Дата виходу: </b><span th:text="${film.rentalDate}"></span></p>
+                            <p><b>Хронометраж: </b><span th:text="${film.filmDuration}"></span></p>
                         </div>
                         <div class="movie-description">
-                            <p th:text="${description}"></p>
+                            <p th:text="${film.description}"></p>
                         </div>
+
+                        <th:block th:if="${isManager}">
+                            <button onclick="onUpdateFilmButtonClick()" class="ticket-button">Редагувати фільм</button>
+                        </th:block>
                     </div>
                 </div>
             </div>
-            
-            <a href="#" class="buy-ticket">Бронювати квиток</a> 
+        </section>
+        <section class="film-schedule box">
+          <h2 class="h">Найближчі сеанси:</h2>
+          <table id="schedule-table">
+            <thead>
+              <tr>
+                <th class="h">Назва фільму</th>
+                <th class="h">Дата та час</th>
+                <th class="h">Хронометраж</th>
+                <th class="h">Номер зали</th>
+                <th class="h">Тип зали</th>
+                <th class="h"></th>
+              </tr>
+            </thead>
+            <tbody id="schedule-body">
+            </tbody>
+          </table>
         </section>
       </main>
     </div>
+    <script th:inline="javascript" src="/scripts/schedule-film.js"></script>
+    <script>
+      function onUpdateFilmButtonClick(){
+        window.location.assign("/admins/films/" + id)
+      }
+    </script>
   </body>
 </html>    
