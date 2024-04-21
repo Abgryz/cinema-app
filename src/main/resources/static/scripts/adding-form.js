@@ -3,21 +3,20 @@ const form = document.getElementById(formId)
 
 form.addEventListener("submit", event => {
     event.preventDefault()
-    if (confirm("Ви дійсно бажаєте зберегти введені дані?")){
-        submitHandlerParam(formId, "POST", form.action)
-            .then(response => response.json())
-            .then(response => {
-                if (response.responseStatus){
-                    console.log(response)
-                    alert("Введені дані збережено")
-                    window.location.assign(window.location.pathname);
-                } else {
-                    alert("Виникла помилка!")
-                }
-            })
-            .catch(err => {
-                console.error(err)
-                alert("Виникла помилка!")
-            })
-    }
+    createConfirm("Ви дійсно бажаєте зберегти введені дані?", (res) => {
+        if (res){
+            submitHandlerParam(formId, "POST", form.action)
+                .then(response => {
+                    if (response.ok) {
+                        createAlert("Дані успішно збережено!", () => window.location.assign(window.location.pathname))
+                    } else {
+                        response.text().then(text => createAlert(text))
+                    }
+                })
+                .catch(err => {
+                    console.error(err)
+                    createAlert("Виникла помилка!")
+                })
+        }
+    })
 })

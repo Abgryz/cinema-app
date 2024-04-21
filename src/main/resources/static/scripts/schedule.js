@@ -49,7 +49,7 @@ fetch("/api/schedule")
 function getFilmName(films, id){
     let str
     films.forEach(film => {
-        if (film.id == id)
+        if (film.id === id)
             str = film.filmName
     })
     return str
@@ -58,7 +58,7 @@ function getFilmName(films, id){
 function getFilmDuration(films, id){
     let str
     films.forEach(film => {
-        if (film.id == id)
+        if (film.id === id)
             str = film.filmDuration
     })
     return str
@@ -67,7 +67,7 @@ function getFilmDuration(films, id){
 function getHallType(halls, id){
     let str
     halls.forEach(hall =>{
-        if (hall.id == id)
+        if (hall.id === id)
             str = hall.type
     })
     return str

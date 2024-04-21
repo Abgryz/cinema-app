@@ -1,6 +1,5 @@
 package com.suitt.controllers.rest;
 
-import com.suitt.models.Response;
 import com.suitt.tables.cinemaShow.CinemaShowDto;
 import com.suitt.tables.cinemaShow.CinemaShowService;
 import com.suitt.tables.film.FilmDto;
@@ -9,6 +8,9 @@ import com.suitt.tables.ticketSales.TicketSalesDto;
 import com.suitt.tables.ticketSales.TicketSalesService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/admins")
@@ -28,15 +31,15 @@ public class AdminRestController {
 
     @PostMapping("/films")
     @Transactional
-    public Response postFilm(@RequestParam("name") String name,
-                             @RequestParam("duration") LocalTime duration,
-                             @RequestParam("filmDirector") String filmDirector,
-                             @RequestParam("cast") String cast,
-                             @RequestParam("image") String image,
-                             @RequestParam("rentalDate") LocalDate rentalDate,
-                             @RequestParam("description") String description,
-                             @RequestParam("genres") List<String> genres,
-                             Authentication authentication){
+    public ResponseEntity<String> postFilm(@RequestParam("name") String name,
+                                   @RequestParam("duration") LocalTime duration,
+                                   @RequestParam("filmDirector") String filmDirector,
+                                   @RequestParam("cast") String cast,
+                                   @RequestParam("image") String image,
+                                   @RequestParam("rentalDate") LocalDate rentalDate,
+                                   @RequestParam("description") String description,
+                                   @RequestParam("genres") List<String> genres,
+                                   Authentication authentication){
         FilmDto filmDto = FilmDto.builder()
                 .filmName(name)
                 .filmDuration(Time.valueOf(duration))
@@ -52,12 +55,12 @@ public class AdminRestController {
                 .build();
 
         filmService.createWithGenres(filmDto);
-        return Response.ok(null);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/shows")
     @Transactional
-    public Response postCinemaShow(@RequestParam("filmId") Long filmId,
+    public ResponseEntity<String> postCinemaShow(@RequestParam("filmId") Long filmId,
                                    @RequestParam("time") LocalTime time,
                                    @RequestParam("date") LocalDate date,
                                    @RequestParam("hallId") Long hallId,
@@ -69,12 +72,12 @@ public class AdminRestController {
                 .dateAndTime(LocalDateTime.of(date, time))
                 .build();
         cinemaShowService.createCinemaShowWithTickets(cinemaShowDto, price);
-        return Response.ok(null);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/ticket-sales")
     @Transactional
-    public Response createOrUpdateTicketSales(@RequestParam("ticketId") Long ticketId,
+    public ResponseEntity<String> createOrUpdateTicketSales(@RequestParam("ticketId") Long ticketId,
                                               @RequestParam("email") String email,
                                               Authentication authentication){
 
@@ -87,29 +90,29 @@ public class AdminRestController {
                 .build();
         if(!ticketSalesService.existsByIdAndClient(ticketId, email) || ticketSalesService.getTicketSales(ticketId).isBooking()){
             ticketSalesService.save(ticketSalesDto);
-            System.out.println("TicketSale created or updated");
-            return Response.ok(null);
+            log.info("TicketSale created or updated");
+            return ResponseEntity.ok().build();
         } else {
-            return Response.fail();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ticket booking already exists");
         }
     }
 
     @DeleteMapping("/ticket-sales/{ticketId}")
     @Transactional
-    public Response cancelBooking(@PathVariable Long ticketId){
+    public ResponseEntity<String> cancelBooking(@PathVariable Long ticketId){
         TicketSalesDto ticketSalesDto = ticketSalesService.getTicketSales(ticketId);
         CinemaShowDto cinemaShowDto = cinemaShowService.getByTicket(ticketId);
         if(ticketSalesDto.isBooking() || cinemaShowDto.dateAndTime().minusMinutes(30).isAfter(LocalDateTime.now())){
             ticketSalesService.delete(ticketId);
-            return Response.ok(null);
+            return ResponseEntity.ok().build();
         } else {
-            return Response.fail();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ticket booking didn`t delete");
         }
     }
 
     @PostMapping("/films/{id}")
     @Transactional
-    public Response updateFilm(@PathVariable Long id,
+    public ResponseEntity<String> updateFilm(@PathVariable Long id,
                                @RequestParam("name") String name,
                                @RequestParam("duration") LocalTime duration,
                                @RequestParam("filmDirector") String filmDirector,
@@ -132,27 +135,27 @@ public class AdminRestController {
                 .rentalDate(rentalDate)
                 .build();
         filmService.updateWithGenres(filmDto);
-        return Response.ok(null);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/films/{id}")
     @Transactional
-    public Response deleteFilm(@PathVariable Long id){
+    public ResponseEntity<String> deleteFilm(@PathVariable Long id){
         filmService.delete(id);
-        return Response.ok(null);
+        return ResponseEntity.ok().build();
     }
 
 
     @DeleteMapping("/shows/{id}")
     @Transactional
-    public Response deleteCinemaShow(@PathVariable Long id){
+    public ResponseEntity<String> deleteCinemaShow(@PathVariable Long id){
         cinemaShowService.delete(id);
-        return Response.ok(null);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/shows/{id}")
     @Transactional
-    public Response updateCinemaShow(@PathVariable Long id,
+    public ResponseEntity<String> updateCinemaShow(@PathVariable Long id,
                                      @RequestParam("filmId") Long filmId,
                                      @RequestParam("time") LocalTime time,
                                      @RequestParam("date") LocalDate date,
@@ -166,6 +169,6 @@ public class AdminRestController {
                 .id(id)
                 .build();
         cinemaShowService.updateCinemaShowWithTickets(cinemaShowDto, price);
-        return Response.ok(null);
+        return ResponseEntity.ok().build();
     }
 }

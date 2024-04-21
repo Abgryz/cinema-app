@@ -4,10 +4,11 @@
         <title>Реєстрація</title>
         <link rel="stylesheet" href="/css/index.css">
         <link rel="stylesheet" href="/css/login.css">
+        <link rel="stylesheet" href="/css/modal-window.css">
     </head>
     <body>
         <main class="box">
-            <section class="container box">
+            <section class="container box container__login">
                 
                 <div th:if="${param.error}">
                     Invalid username and password.
@@ -22,12 +23,13 @@
                     <div><label class="h" for="repeat-password">Repeat password:</label><input type="password" name="repeat-password" class="textbox" id="repeat-password" required/></div>
                     <div class="buttons">
                         <input type="button" value="Log In" class="form-button" onclick="redirectToLogin()"/>
-                        <input type="submit" value="Register" class="form-button"/>
+                        <input type="button" value="Register" class="form-button" id="register-button"/>
                     </div>
                 </form>
             </section>
         </main>
         <script src="/scripts/register.js"></script>
         <script src="/scripts/submit-handler.js"></script>
+        <script src="/scripts/modal-window.js"></script>
     </body>
 </html>

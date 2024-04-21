@@ -15,10 +15,6 @@ public class Hall{
     @Column(name = "hall_id")
     private Long id;
 
-//    private int seatCount;
-
-    private String hallType;
-
     @OneToMany(mappedBy = "hall", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CinemaShow> cinemaShows;
 

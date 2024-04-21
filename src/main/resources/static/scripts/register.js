@@ -1,25 +1,25 @@
+// import {createModal} from "./modal-window";
+// import {submitHandlerParam} from "./submit-handler.js"
+
 const formId = "register-form"
 const form = document.getElementById(formId)
+const registerButton = document.getElementById("register-button")
 
-form.addEventListener("submit", function(event) {
-    event.preventDefault()
-    if(form.querySelector("#password").value !== form.querySelector("#repeat-password").value){
-        alert("Паролі не співпадають. Спробуй ще раз")
+registerButton.addEventListener("click", function (event) {
+    if (form.querySelector("#password").value !== form.querySelector("#repeat-password").value) {
+        createAlert("Паролі не співпадають")
     } else {
-        submitHandlerParam(formId, "POST", form.action)
-            .then(response => response.json())
+        submitHandlerParam(formId, "POST", "api/register")
             .then(response => {
-                if(response.responseStatus){
-                    console.log(response)
-                    alert("Реєстрація пройшла успішно")
-                    redirectToLogin()
+                if (response.ok) {
+                    createAlert("Реєстрація пройшла успішно. Тепер ви можете увійти в систему.", () => redirectToLogin())
                 } else {
-                    alert("Виникла помилка при реєстрації")
+                    response.text().then(text => createAlert(text))
                 }
             })
             .catch(err => {
                 console.error(err)
-                alert("Виникла помилка при реєстрації")
+                createAlert("Виникла помилка при реєстрації. Спробуй ще раз")
             })
     }
 })

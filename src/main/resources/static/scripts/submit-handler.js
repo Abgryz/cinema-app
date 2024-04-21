@@ -5,7 +5,6 @@ function submitHandlerParam(formId, method, endpoint){
         params.append(key, value);
     });
     const endpointWithParams = endpoint + "?" + params.toString();
-    console.log(endpointWithParams);
 
     return fetch(endpointWithParams, {
         method: method,

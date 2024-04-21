@@ -50,7 +50,7 @@ fetch("/api/schedule/films/" + id)
 function getHallType(halls, id){
     let str
     halls.forEach(hall =>{
-        if (hall.id == id)
+        if (hall.id === id)
             str = hall.type
     })
     return str
