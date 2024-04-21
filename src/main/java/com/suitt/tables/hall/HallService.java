@@ -37,8 +37,6 @@ public class HallService {
     private static HallDto mapHall(Hall hall) {
         return new HallDto(
                 hall.getId(),
-                hall.getHallType(),
-//                hall.getSeatCount(),
                 hall.getCinemaShows().stream()
                         .map(CinemaShow::getId)
                         .collect(Collectors.toList()),

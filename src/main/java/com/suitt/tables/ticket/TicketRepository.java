@@ -26,7 +26,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
             select
             	film_name,
             	date_and_time,
-            	hall_type,
             	seat.hall_id,
             	seat_row,
             	seat_num,
