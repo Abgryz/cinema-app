@@ -48,7 +48,7 @@ public class TicketService {
 //                                        .build()
 //                        )
 //                );
-        ticketRepository.createAllForCinemaShow(cinemaShowId, price);
+        ticketRepository.createTicketsForCinemaShow(cinemaShowId, price);
     }
 
     public TicketDto findByCinemaShowAndSeat(Long cinemaShowId, Long seatId){

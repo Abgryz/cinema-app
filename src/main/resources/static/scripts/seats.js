@@ -45,32 +45,37 @@ function tableCreater(row, seatData){
 }
 
 function buttonCreater(seatData){
-    const button = document.createElement('button')
-    button.setAttribute("id", seatData.seat.id)
-    button.innerHTML = seatData.seat.seatNumber
+    const button = document.createElement('button');
+    button.setAttribute("id", seatData.seat.id);
+    button.innerHTML = seatData.seat.seatNumber;
+
     if(seatData.isBusy === true){
-        button.disabled = true
-        button.classList.add("busy")
+        button.disabled = true;
+        button.classList.add("busy");
     } else{
-        button.innerHTML += "<br><span class='price'>" + seatData.ticket.price * seatData.seat.priceCoefficient + "грн<span>"
+        const price = Math.round(seatData.ticket.price * seatData.seat.priceCoefficient);
+        button.innerHTML += "<br><span class='price'>" + price + "грн</span>";
     }
-    button.classList.add("seat")
-    return button
+
+    button.classList.add("seat");
+    return button;
 }
 
-function onSeatButtonClick(button){
 
-    if(confirm("Ви дійсно бажаєте забронювати квиток на обране вами місце?")){
-        fetch('/api/schedule/' + id + "?seatId=" + button.id, {method: 'POST'})
-        .then(response => {
-            if (response.ok) {
-                button.disabled = true
-                button.classList.add("busy")
-                button.classList.remove("active")
-            } else {
-                alert("Виникла помилка!")
-            }
-          })
-        .catch(error => {console.log(error)});
-    }
+function onSeatButtonClick(button){
+    createConfirm("Ви дійсно бажаєте забронювати квиток на обране вами місце?", (res) => {
+        if (res) {
+            fetch('/api/schedule/' + id + "?seatId=" + button.id, {method: 'POST'})
+            .then(response => {
+                if (response.ok) {
+                    button.disabled = true
+                    button.classList.add("busy")
+                    button.classList.remove("active")
+                } else {
+                    alert("Виникла помилка!")
+                }
+              })
+            .catch(error => {console.log(error)});
+        }
+    })
 }

@@ -5,6 +5,7 @@ import com.suitt.tables.seat.Seat;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +27,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
             select
             	film_name,
             	date_and_time,
+            	hall.type,
             	seat.hall_id,
             	seat_row,
             	seat_num,
@@ -45,5 +47,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     @Modifying
     @Query(value = "call create_tickets_for_cinema_show(:cinemaShowId, :price);", nativeQuery = true)
-    void createAllForCinemaShow(@Param("cinemaShowId") Long cinemaShowId, @Param("price") double price);
+    void createTicketsForCinemaShow(@Param("cinemaShowId") Long cinemaShowId, @Param("price") double price);
 }

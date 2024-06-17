@@ -87,7 +87,7 @@ public class TicketServiceTest {
 
         ticketService.createAllForCinemaShow(cinemaShowId, price);
 
-        Mockito.verify(ticketRepository).createAllForCinemaShow(eq(cinemaShowId), eq(price));
+        Mockito.verify(ticketRepository).createTicketsForCinemaShow(eq(cinemaShowId), eq(price));
     }
 
     @Test

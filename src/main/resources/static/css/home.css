@@ -43,18 +43,20 @@
 }
 
 .film-card div{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 @media only screen and (max-width:1250px){
   .film-card div{
-    grid-template-columns: repeat(3, 1fr);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
   }
 }
 @media only screen and (max-width:767px){
   .film-card div{
-    grid-template-columns: repeat(2, 1fr);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
   }
 }
 

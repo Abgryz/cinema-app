@@ -30,7 +30,7 @@ public interface CinemaShowRepository extends JpaRepository<CinemaShow, Long> {
                 date_and_time,
                 duration,
                 hall_id,
-                hall_type,
+                type,
                 cinema_show_id
             from cinema_show
                 join hall using(hall_id)
